@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PinkPoint.Core\PinkPoint.Core.csproj" />
+    <ProjectReference Include="..\PinkPoint.DataAccess\PinkPoint.DataAccess.csproj" />
+  </ItemGroup>
+
+</Project>
