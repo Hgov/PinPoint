@@ -2,6 +2,8 @@
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using PinkPoint.Core.Repositories.Base;
 using PinkPoint.DataAccess.Helpers;
+using PinkPoint.Infrastructure.Repositories.Extensions;
+using System.Linq.Expressions;
 
 namespace PinkPoint.Infrastructure.Repositories.Base
 {
@@ -45,12 +47,29 @@ namespace PinkPoint.Infrastructure.Repositories.Base
             return Task.CompletedTask;
         }
 
-        public Task update(TEntity entity)
+        public Task UpdateAsync(TEntity entity)
         {
             _dbSet.Update(entity);
             return Task.CompletedTask;
         }
+        public Task UpdateRangeAsync(IEnumerable<TEntity> entities)
+        {
+            _dbSet.UpdateRange(entities);
+            return Task.CompletedTask;
+        }
 
+
+
+
+        //public async Task<IQueryable<TEntity>> IncludeManyAsync(params Expression<Func<TEntity, object>>[] includes)
+        //{
+        //    return await _dbSet.IncludeMultiple(includes);
+        //}
+
+        //public Task<IEnumerable<TEntity>> GetSqlAsync(string sql)
+        //{
+        //    return _dbSet.FromSql<TEntity>((FormattableString)sql);
+        //}
 
     }
 }

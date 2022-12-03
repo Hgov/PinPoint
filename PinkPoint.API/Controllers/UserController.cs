@@ -5,6 +5,7 @@ using PinkPoint.Application.Service;
 using PinkPoint.Core.Repositories;
 using PinkPoint.Data.Domain;
 using PinkPoint.DataAccess.Helpers;
+using PinkPoint.Mapper.Models.User;
 
 namespace PinkPoint.API.Controllers
 {
@@ -13,13 +14,14 @@ namespace PinkPoint.API.Controllers
     [Produces("application/json")]
     public class UserController : Controller
     {
-        public IUserService<User> _userService { get; set; }
+        private IUserService<User> _userService;
         private readonly DataContext _dataContext;
-      
-        public UserController(DataContext dataContext)
+        private readonly IMapper _mapper;
+        public UserController(DataContext dataContext, IMapper mapper)
         {
             _dataContext = dataContext;
             _userService = new UserService(_dataContext);
+            _mapper = mapper;
         }
         // GET: UserController
         [HttpGet("list")]
@@ -64,9 +66,10 @@ namespace PinkPoint.API.Controllers
         // POST: UserController/Create
         [HttpPost("create")]
         //[ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(User user)
+        public async Task<IActionResult> Create(GetUserDTO user)
         {
-            var result = await _userService.PostUserAsync(user);
+            var _mappedUser = _mapper.Map<GetUserDTO,User>(user);
+            var result = await _userService.PostUserAsync(_mappedUser);
             return Ok();
         }
 
