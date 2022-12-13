@@ -28,49 +28,30 @@ namespace PinkPoint.API.Controllers
         public async Task<IActionResult> Index()
         {
             var result = await _userService.GetUserListAsync();
-            //var _userMapped = mapper.Map<List<User>, List<DTOUserGet>>(GetUserAll.ToList());
-            return Ok(result.Select(x => new
-            {
-                user_id = x.user_id,
-                first_name = x.first_name,
-                last_name = x.last_name,
-                email = x.email,
-                phone = x.phone,
-                bio = x.bio,
-                creation_tsz = x.creation_tsz,
-                status_active = x.status_active,
-                status_visibility = x.status_visibility
-            }));
+            var _mapped = _mapper.Map<List<GetUserDTO>>(result);
+            return Ok(_mapped);
         }
 
         // GET: UserController/Details/5
         [HttpGet("detail/{id?}")]
         public async Task<IActionResult> Details(Guid id)
         {
-            var result = await _userService.GetByIdUserAsync(id);
-            return Ok(new
-            {
-                user_id = result.user_id,
-                first_name = result.first_name,
-                last_name = result.last_name,
-                email = result.email,
-                phone = result.phone,
-                bio = result.bio,
-                creation_tsz = result.creation_tsz,
-                status_active = result.status_active,
-                status_visibility = result.status_visibility
-            });
+            User result = await _userService.GetByIdUserAsync(id);
+            var _mapped = _mapper.Map<GetUserDTO>(result);
+            return Ok(_mapped);
         }
 
 
         // POST: UserController/Create
         [HttpPost("create")]
         //[ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(GetUserDTO user)
+        public async Task<IActionResult> Create(PostUserDTO postUserDTO)
         {
-            var _mappedUser = _mapper.Map<GetUserDTO,User>(user);
-            var result = await _userService.PostUserAsync(_mappedUser);
-            return Ok();
+            var _mapped = _mapper.Map<User>(postUserDTO);
+            var result = await _userService.PostUserAsync(_mapped);
+            return Ok(new { 
+                CreatedUserId=result.user_id
+            });
         }
 
         //// POST: UserController/Create

@@ -1,4 +1,5 @@
 ﻿
+using FluentValidation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
@@ -12,6 +13,7 @@ using PinkPoint.DataAccess.Helpers;
 using PinkPoint.FluentValidation.AbstractValidation;
 using PinkPoint.Infrastructure.Logging;
 using PinkPoint.Infrastructure.UnitOfWork.Base;
+using System.ComponentModel.DataAnnotations;
 
 namespace PinkPoint.Application.Service
 {
@@ -38,20 +40,26 @@ namespace PinkPoint.Application.Service
             var _user = await _uow.userRepository.GetByIDAsync(id);
             return _user;
         }
-        public async Task<EntityEntry<User>> PostUserAsync(User user)
+        public async Task<User> PostUserAsync(User user)
         {
-            var _validate = _userValidator.Validate(user);
-            if (!_validate.IsValid)
+            _userValidator.Validate(user, options =>
             {
-                foreach (var failure in _validate.Errors)
-                {
-                    throw new AppException(message: "Property " + failure.PropertyName + " failed. Error was: " + failure.ErrorMessage);
-                }
-            }
+                options.ThrowOnFailures();
+            });
             var _user=await _uow.userRepository.AddAsync(user);
             _uow.Complete();
             return _user;
         }
 
+        public async Task<User> PutUserAsync(User user)
+        {
+            _userValidator.Validate(user, options =>
+            {
+                options.ThrowOnFailures();
+            });
+
+
+            throw new NotImplementedException();
+        }
     }
 }

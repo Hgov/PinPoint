@@ -1,15 +1,11 @@
-﻿using PinkPoint.Data.Domain.Base;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using PinkPoint.Mapper.Models.Base;
 using static PinkPoint.Data.Enums.Enums;
 
 namespace PinkPoint.Mapper.Models.User
 {
-    public class GetUserDTO
+    public class GetUserDTO:AdditionalDomainDTO
     {
+        public Guid user_id { get; set; }
         public string? first_name { get; set; }
         public string? last_name { get; set; }
         public string? email { get; set; }

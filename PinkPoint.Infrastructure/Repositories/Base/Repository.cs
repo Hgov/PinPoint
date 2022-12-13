@@ -17,9 +17,10 @@ namespace PinkPoint.Infrastructure.Repositories.Base
             this._Context = context;
             this._dbSet = _Context.Set<TEntity>();
         }
-        public async Task<EntityEntry<TEntity>> AddAsync(TEntity entity)
+        public async Task<TEntity> AddAsync(TEntity entity)
         {
-           return await _dbSet.AddAsync(entity);
+            var _entity = await _dbSet.AddAsync(entity);
+            return _entity.Entity;
         }
 
         public async Task AddRangeAsync(IEnumerable<TEntity> entities)
@@ -36,9 +37,10 @@ namespace PinkPoint.Infrastructure.Repositories.Base
         {
             return await _dbSet.FindAsync(id);
         }
-        public async Task<EntityEntry<TEntity>> RemoveAsync(Guid id)
+        public async Task<TEntity> RemoveAsync(Guid id)
         {
-            return _dbSet.Remove(await GetByIDAsync(id));
+            var _entity = _dbSet.Remove(await GetByIDAsync(id));
+            return _entity.Entity;
         }
 
         public Task RemoveRangeAsync(IEnumerable<TEntity> entities)

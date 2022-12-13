@@ -11,9 +11,15 @@ namespace PinkPoint.Mapper.Mapper.Profiles
             CreateMap<GetUserDTO, User>();
             CreateMap<User, GetUserDTO>();
 
-
             CreateMap<PostUserDTO, User>();
+                //.ForMember(
+                //    dest => dest.user_id,
+                //    opt => opt.MapFrom(src => $"{new Guid()}")
+                //);
             CreateMap<User, PostUserDTO>();
+
+            CreateMap<PutUserDTO, User>();
+            CreateMap<User, PutUserDTO>();
         }
     }
 }

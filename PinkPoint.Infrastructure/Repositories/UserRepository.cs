@@ -19,36 +19,36 @@ namespace PinkPoint.Infrastructure.Repositories
         }
         public DataContext dataContext { get { return _Context as DataContext; } }
 
-        public async Task<IEnumerable<User>> GetAsync()
-        {
-            return await _Context.Users
-            //.Include(x => x.gender)
-            //.Include(x => x.Role)
-            ////.Include(x => x.UserFiles)
-            ////.ThenInclude(x => x.File)
-                .ToListAsync();
-        }
-        public async Task<User> GetByIdAsync(Guid id)
-        {
-            return await _Context.Users
-                //.Where(x => x.user_id == id)
-                //.Include(x => x.gender)
-                //.Include(x => x.Role)
-                ////.Include(x => x.UserFiles)
-                ////.ThenInclude(x => x.File)
-                .FirstOrDefaultAsync();
-        }
-        public async Task<bool> GetIdAnyAsync(Guid id)
-        {
-            return await _Context.Users.AnyAsync(x => x.user_id == id);
-        }
-        public async Task<bool> GetEmailAnyAsync(string email)
-        {
-            return await _Context.Users.AnyAsync(x => x.email == email);
-        }
-        public async Task<bool> GetPhoneAnyAsync(string phone)
-        {
-            return await _Context.Users.AnyAsync(x => x.phone == phone);
-        }
+        //public async Task<IEnumerable<User>> GetAsync()
+        //{
+        //    return await _Context.Users
+        //    //.Include(x => x.gender)
+        //    //.Include(x => x.Role)
+        //    ////.Include(x => x.UserFiles)
+        //    ////.ThenInclude(x => x.File)
+        //        .ToListAsync();
+        //}
+        //public async Task<User> GetByIdAsync(Guid id)
+        //{
+        //    return await _Context.Users
+        //        //.Where(x => x.user_id == id)
+        //        //.Include(x => x.gender)
+        //        //.Include(x => x.Role)
+        //        ////.Include(x => x.UserFiles)
+        //        ////.ThenInclude(x => x.File)
+        //        .FirstOrDefaultAsync();
+        //}
+        //public async Task<bool> GetIdAnyAsync(Guid id)
+        //{
+        //    return await _Context.Users.AnyAsync(x => x.user_id == id);
+        //}
+        //public async Task<bool> GetEmailAnyAsync(string email)
+        //{
+        //    return await _Context.Users.AnyAsync(x => x.email == email);
+        //}
+        //public async Task<bool> GetPhoneAnyAsync(string phone)
+        //{
+        //    return await _Context.Users.AnyAsync(x => x.phone == phone);
+        //}
     }
 }

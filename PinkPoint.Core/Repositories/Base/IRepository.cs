@@ -10,9 +10,9 @@ namespace PinkPoint.Core.Repositories.Base
         //Task<IEnumerable<TEntity>> GetSqlAsync(string sql);
         Task<TEntity> GetByIDAsync(Guid id);
         Task<IEnumerable<TEntity>> GetAllAsync();
-        Task<EntityEntry<TEntity>> AddAsync(TEntity entity);
+        Task<TEntity> AddAsync(TEntity entity);
         Task AddRangeAsync(IEnumerable<TEntity> entities);
-        Task<EntityEntry<TEntity>> RemoveAsync(Guid id);
+        Task<TEntity> RemoveAsync(Guid id);
         Task RemoveRangeAsync(IEnumerable<TEntity> entities);
         Task UpdateAsync(TEntity entity);
         Task UpdateRangeAsync(IEnumerable<TEntity> entities);

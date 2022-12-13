@@ -7,6 +7,7 @@ namespace PinkPoint.Application.Interface
     {
         Task<IEnumerable<User>> GetUserListAsync();
         Task<User> GetByIdUserAsync(Guid guid);
-        Task<EntityEntry<User>> PostUserAsync(User user);
+        Task<User> PostUserAsync(User user);
+        Task<User> PutUserAsync(User user);
     }
 }
