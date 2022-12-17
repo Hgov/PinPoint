@@ -7,7 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
+    <Content Remove="Configuration\NLog.config" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Configuration\NLog.config" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.10" />
     <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.0">
@@ -19,8 +26,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\PinkPoint.Application\PinkPoint.Application.csproj" />
-    <ProjectReference Include="..\PinkPoint.Mapper\PinkPoint.Mapper.csproj" />
-    <ProjectReference Include="..\PinkPoint.Nlog\PinkPoint.Nlog.csproj" />
   </ItemGroup>
 
 </Project>

@@ -2,9 +2,10 @@
 using Microsoft.AspNetCore.Mvc;
 using PinkPoint.Application.Interface;
 using PinkPoint.Application.Service;
+using PinkPoint.Core.LoggerManager;
 using PinkPoint.Data.Domain;
 using PinkPoint.DataAccess.Helpers;
-using PinkPoint.Mapper.Models.User;
+using PinkPoint.Infrastructure.MapperService.Models.User;
 
 namespace PinkPoint.API.Controllers
 {
@@ -14,10 +15,10 @@ namespace PinkPoint.API.Controllers
     public class UserController : Controller
     {
         private IUserService<User> _userService;
-        private readonly ILogger<UserController> _logger;
+        private readonly ILoggerManager _logger;
         private readonly DataContext _dataContext;
         private readonly IMapper _mapper;
-        public UserController(DataContext dataContext, IMapper mapper, ILogger<UserController> logger)
+        public UserController(DataContext dataContext, IMapper mapper, ILoggerManager logger)
         {
             _dataContext = dataContext;
             _userService = new UserService(_dataContext);
@@ -28,7 +29,7 @@ namespace PinkPoint.API.Controllers
         [HttpGet("list")]
         public async Task<IActionResult> Index()
         {
-            _logger.LogInformation("sadasdasdasdasdasd");
+            _logger.LogInfo("Loglama testi başarılı");
 
             var result = await _userService.GetUserListAsync();
             var _mapped = _mapper.Map<List<GetUserDTO>>(result);
