@@ -19,8 +19,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\PinkPoint.Application\PinkPoint.Application.csproj" />
-    <ProjectReference Include="..\PinkPoint.DataAccess\PinkPoint.DataAccess.csproj" />
     <ProjectReference Include="..\PinkPoint.Mapper\PinkPoint.Mapper.csproj" />
+    <ProjectReference Include="..\PinkPoint.Nlog\PinkPoint.Nlog.csproj" />
   </ItemGroup>
 
 </Project>

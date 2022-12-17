@@ -1,9 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 using PinkPoint.Core.Repositories.Base;
 using PinkPoint.DataAccess.Helpers;
-using PinkPoint.Infrastructure.Repositories.Extensions;
-using System.Linq.Expressions;
 
 namespace PinkPoint.Infrastructure.Repositories.Base
 {

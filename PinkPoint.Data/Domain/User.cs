@@ -1,7 +1,7 @@
 ﻿
-using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
 using PinkPoint.Data.Domain.Base;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using static PinkPoint.Data.Enums.Enums;
 
 namespace PinkPoint.Data.Domain
@@ -13,7 +13,7 @@ namespace PinkPoint.Data.Domain
         {
 
         }
-        [Key]   
+        [Key]
         public Guid user_id { get; set; }
         public string? first_name { get; set; }
         public string? last_name { get; set; }

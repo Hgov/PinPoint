@@ -1,8 +1,4 @@
-﻿
-using Microsoft.EntityFrameworkCore.ChangeTracking;
-using System.Linq.Expressions;
-
-namespace PinkPoint.Core.Repositories.Base
+﻿namespace PinkPoint.Core.Repositories.Base
 {
     public interface IRepository<TEntity> where TEntity : class
     {

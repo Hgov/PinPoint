@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\PinkPoint.Core\PinkPoint.Core.csproj" />
-    <ProjectReference Include="..\PinkPoint.DataAccess\PinkPoint.DataAccess.csproj" />
   </ItemGroup>
 
 </Project>

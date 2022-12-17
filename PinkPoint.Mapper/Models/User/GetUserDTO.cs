@@ -3,7 +3,7 @@ using static PinkPoint.Data.Enums.Enums;
 
 namespace PinkPoint.Mapper.Models.User
 {
-    public class GetUserDTO:AdditionalDomainDTO
+    public class GetUserDTO : AdditionalDomainDTO
     {
         public Guid user_id { get; set; }
         public string? first_name { get; set; }

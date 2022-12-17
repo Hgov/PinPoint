@@ -1,14 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using PinkPoint.Core.UnitOfWork.Base;
 using static PinkPoint.Data.Enums.Enums;
 
 namespace PinkPoint.FluentValidation.Helper
 {
     public class FluentValidationHelper
     {
+        public IUnitOfWork _uow;
+        public FluentValidationHelper(IUnitOfWork uow)
+        {
+            _uow = uow;
+        }
         public bool GenderBeAValidParameter(Gender? arg)
         {
             return arg.Equals(Gender.Male) || arg.Equals(Gender.Null) || arg.Equals(Gender.Female);

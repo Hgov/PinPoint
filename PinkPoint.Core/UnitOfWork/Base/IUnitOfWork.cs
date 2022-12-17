@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using PinkPoint.Core.Repositories;
+﻿using PinkPoint.Core.Repositories;
 
 namespace PinkPoint.Core.UnitOfWork.Base
 {

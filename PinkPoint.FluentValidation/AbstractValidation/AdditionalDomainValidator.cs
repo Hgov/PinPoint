@@ -1,7 +1,5 @@
 ﻿using FluentValidation;
 using PinkPoint.Data.Domain.Base;
-using PinkPoint.FluentValidation.Helper;
-using System.Text.RegularExpressions;
 
 namespace PinkPoint.FluentValidation.AbstractValidation
 {

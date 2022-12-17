@@ -1,13 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
-using PinkPoint.Core.Repositories;
+﻿using PinkPoint.Core.Repositories;
 using PinkPoint.Data.Domain;
 using PinkPoint.DataAccess.Helpers;
 using PinkPoint.Infrastructure.Repositories.Base;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PinkPoint.Infrastructure.Repositories
 {
