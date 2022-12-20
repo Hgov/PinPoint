@@ -1,5 +1,5 @@
 ﻿
-namespace PinkPoint.Infrastructure.InfrastructureException
+namespace PinPoint.Infrastructure.InfrastructureException
 {
     public class InfrastructureException : Exception
     {

@@ -1,10 +1,10 @@
-using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using NLog;
-using PinkPoint.API;
-using PinkPoint.DataAccess.Helpers;
-using PinkPoint.Infrastructure.MapperService.Profiles;
+using NLog.Web;
+using PinPoint.API;
+using PinPoint.DataAccess.Helpers;
+using PinPoint.Infrastructure.MapperService.Profiles;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -20,9 +20,12 @@ builder.Services.AddAntiforgery(options => options.HeaderName = "__RequestVerifi
 builder.Services.AddAutoMapper(typeof(UserProfile));
 
 // NLog: Setup NLog for Dependency injection
+
+builder.Logging.ClearProviders();
+builder.Logging.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Trace);
+builder.Host.UseNLog();
 LogManager.LoadConfiguration(string.Concat(Directory.GetCurrentDirectory(), "/Configuration/nlog.config"));
 builder.Services.ConfigureLoggerService();
-
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -31,8 +34,8 @@ builder.Services.AddSwaggerGen(options =>
     options.SwaggerDoc("v1", new OpenApiInfo
     {
         Version = "v1",
-        Title = "PinkPoint API",
-        Description = "An ASP.NET Core Web API for managing PinkPoint items",
+        Title = "PinPoint API",
+        Description = "An ASP.NET Core Web API for managing PinPoint items",
         TermsOfService = new Uri("https://localhost:7098/api"),
         Contact = new OpenApiContact
         {
@@ -56,7 +59,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI(options =>
     {
-        options.SwaggerEndpoint("/swagger/v1/swagger.json", "PinkPoint API v1");
+        options.SwaggerEndpoint("/swagger/v1/swagger.json", "PinPoint API v1");
     });
 
 }

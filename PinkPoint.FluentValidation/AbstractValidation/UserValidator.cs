@@ -1,13 +1,13 @@
 ﻿using FluentValidation;
-using PinkPoint.Core.FluentValidation;
-using PinkPoint.Core.UnitOfWork.Base;
-using PinkPoint.Data.Domain;
-using PinkPoint.DataAccess.Helpers;
-using PinkPoint.FluentValidation.Helper;
-using PinkPoint.Infrastructure.UnitOfWork.Base;
+using PinPoint.Core.FluentValidation;
+using PinPoint.Core.UnitOfWork.Base;
+using PinPoint.Data.Domain;
+using PinPoint.DataAccess.Helpers;
+using PinPoint.FluentValidation.Helper;
+using PinPoint.Infrastructure.UnitOfWork.Base;
 using System.Text.RegularExpressions;
 
-namespace PinkPoint.FluentValidation.AbstractValidation
+namespace PinPoint.FluentValidation.AbstractValidation
 {
     public class UserValidator : AbstractValidator<User>, IFluentValidationUser<User>
     {

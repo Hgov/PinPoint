@@ -1,6 +1,6 @@
 ﻿
 
-namespace PinkPoint.Data.Domain.Base
+namespace PinPoint.Data.Domain.Base
 {
     public class AdditionalDomain
     {

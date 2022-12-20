@@ -1,6 +1,6 @@
 ﻿
 
-namespace PinkPoint.Core.CoreException
+namespace PinPoint.Core.CoreException
 {
     public class CoreException : Exception
     {

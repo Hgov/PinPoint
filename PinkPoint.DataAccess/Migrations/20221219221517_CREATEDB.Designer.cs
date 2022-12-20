@@ -5,28 +5,66 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using PinkPoint.DataAccess.Helpers;
+using PinPoint.DataAccess.Helpers;
 
 #nullable disable
 
-namespace PinkPoint.DataAccess.Migrations
+namespace PinPoint.DataAccess.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20221019154507_createDB")]
-    partial class createDB
+    [Migration("20221219221517_CREATEDB")]
+    partial class CREATEDB
     {
+        /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.10")
+                .HasAnnotation("ProductVersion", "7.0.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
-            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("PinkPoint.Data.Domain.User", b =>
+            modelBuilder.Entity("PinPoint.Data.Domain.NLog", b =>
                 {
-                    b.Property<Guid>("user_id")
+                    b.Property<int?>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("ID"));
+
+                    b.Property<string>("Callsite")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Exception")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Level")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("Logged")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Logger")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MachineName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Message")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Properties")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("NLogs");
+                });
+
+            modelBuilder.Entity("PinPoint.Data.Domain.User", b =>
+                {
+                    b.Property<Guid?>("user_id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 

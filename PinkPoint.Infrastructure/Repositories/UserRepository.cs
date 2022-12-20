@@ -1,9 +1,9 @@
-﻿using PinkPoint.Core.Repositories;
-using PinkPoint.Data.Domain;
-using PinkPoint.DataAccess.Helpers;
-using PinkPoint.Infrastructure.Repositories.Base;
+﻿using PinPoint.Core.Repositories;
+using PinPoint.Data.Domain;
+using PinPoint.DataAccess.Helpers;
+using PinPoint.Infrastructure.Repositories.Base;
 
-namespace PinkPoint.Infrastructure.Repositories
+namespace PinPoint.Infrastructure.Repositories
 {
     public class UserRepository : Repository<User>, IUserRepository
     {

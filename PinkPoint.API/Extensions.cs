@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using PinkPoint.Core.LoggerManager;
-using PinkPoint.Infrastructure.LoggerService;
+using PinPoint.Core.LoggerManager;
+using PinPoint.Infrastructure.LoggerService;
 
-namespace PinkPoint.API
+namespace PinPoint.API
 {
     public static class Extensions
     {

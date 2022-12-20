@@ -1,7 +1,7 @@
-﻿using PinkPoint.Core.Repositories.Base;
-using PinkPoint.Data.Domain;
+﻿using PinPoint.Core.Repositories.Base;
+using PinPoint.Data.Domain;
 
-namespace PinkPoint.Core.Repositories
+namespace PinPoint.Core.Repositories
 {
     public interface IUserRepository : IRepository<User>
     {

@@ -1,9 +1,9 @@
-﻿using PinkPoint.Core.Repositories;
-using PinkPoint.Core.UnitOfWork.Base;
-using PinkPoint.DataAccess.Helpers;
-using PinkPoint.Infrastructure.Repositories;
+﻿using PinPoint.Core.Repositories;
+using PinPoint.Core.UnitOfWork.Base;
+using PinPoint.DataAccess.Helpers;
+using PinPoint.Infrastructure.Repositories;
 
-namespace PinkPoint.Infrastructure.UnitOfWork.Base
+namespace PinPoint.Infrastructure.UnitOfWork.Base
 {
     public class UnitOfWork : IUnitOfWork
     {

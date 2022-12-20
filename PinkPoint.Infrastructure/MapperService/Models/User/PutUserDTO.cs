@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static PinkPoint.Data.Enums.Enums;
+using static PinPoint.Data.Enums.Enums;
 
-namespace PinkPoint.Infrastructure.MapperService.Models.User
+namespace PinPoint.Infrastructure.MapperService.Models.User
 {
     public class PutUserDTO
     {

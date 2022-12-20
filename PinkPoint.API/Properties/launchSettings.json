@@ -9,7 +9,7 @@
     }
   },
   "profiles": {
-    "PinkPoint.API": {
+    "PinPoint.API": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,

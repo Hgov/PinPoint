@@ -1,7 +1,7 @@
 ﻿using NLog;
-using PinkPoint.Core.LoggerManager;
+using PinPoint.Core.LoggerManager;
 
-namespace PinkPoint.Infrastructure.LoggerService
+namespace PinPoint.Infrastructure.LoggerService
 {
     public class LoggerManager : ILoggerManager
     {

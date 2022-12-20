@@ -1,4 +1,4 @@
-﻿namespace PinkPoint.Data.Enums
+﻿namespace PinPoint.Data.Enums
 {
     public class Enums
     {

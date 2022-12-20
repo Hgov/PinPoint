@@ -7,11 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="FluentValidation.AspNetCore" Version="11.2.2" />
+    <PackageReference Include="NLog.Extensions.Logging" Version="5.2.0" />
+    <PackageReference Include="NLog.Web.AspNetCore" Version="5.2.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\PinkPoint.Infrastructure\PinkPoint.Infrastructure.csproj" />
+    <ProjectReference Include="..\PinkPoint.Core\PinPoint.Core.csproj" />
   </ItemGroup>
 
 </Project>

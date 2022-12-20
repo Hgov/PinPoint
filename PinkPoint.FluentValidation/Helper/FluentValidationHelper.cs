@@ -1,7 +1,7 @@
-﻿using PinkPoint.Core.UnitOfWork.Base;
-using static PinkPoint.Data.Enums.Enums;
+﻿using PinPoint.Core.UnitOfWork.Base;
+using static PinPoint.Data.Enums.Enums;
 
-namespace PinkPoint.FluentValidation.Helper
+namespace PinPoint.FluentValidation.Helper
 {
     public class FluentValidationHelper
     {

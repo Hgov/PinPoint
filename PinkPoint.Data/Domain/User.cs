@@ -1,10 +1,10 @@
 ﻿
-using PinkPoint.Data.Domain.Base;
+using PinPoint.Data.Domain.Base;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using static PinkPoint.Data.Enums.Enums;
+using static PinPoint.Data.Enums.Enums;
 
-namespace PinkPoint.Data.Domain
+namespace PinPoint.Data.Domain
 {
     [Table("Users")]
     public class User : AdditionalDomain
@@ -14,7 +14,7 @@ namespace PinkPoint.Data.Domain
 
         }
         [Key]
-        public Guid user_id { get; set; }
+        public Guid? user_id { get; set; }
         public string? first_name { get; set; }
         public string? last_name { get; set; }
         public string? email { get; set; }

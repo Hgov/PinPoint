@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
-namespace PinkPoint.Infrastructure.Repositories.Extensions
+namespace PinPoint.Infrastructure.Repositories.Extensions
 {
     public static class Extensions
     {

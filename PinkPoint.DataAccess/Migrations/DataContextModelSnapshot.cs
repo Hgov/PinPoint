@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using PinkPoint.DataAccess.Helpers;
+using PinPoint.DataAccess.Helpers;
 
 #nullable disable
 
-namespace PinkPoint.DataAccess.Migrations
+namespace PinPoint.DataAccess.Migrations
 {
     [DbContext(typeof(DataContext))]
     partial class DataContextModelSnapshot : ModelSnapshot
@@ -22,9 +22,46 @@ namespace PinkPoint.DataAccess.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("PinkPoint.Data.Domain.User", b =>
+            modelBuilder.Entity("PinPoint.Data.Domain.NLog", b =>
                 {
-                    b.Property<Guid>("user_id")
+                    b.Property<int?>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("ID"));
+
+                    b.Property<string>("Callsite")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Exception")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Level")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("Logged")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Logger")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MachineName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Message")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Properties")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("NLogs");
+                });
+
+            modelBuilder.Entity("PinPoint.Data.Domain.User", b =>
+                {
+                    b.Property<Guid?>("user_id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
@@ -67,53 +104,6 @@ namespace PinkPoint.DataAccess.Migrations
                     b.HasKey("user_id");
 
                     b.ToTable("Users");
-
-                    b.HasData(
-                        new
-                        {
-                            userid = new Guid("c94b6b4b-b72a-4ad9-8ee1-357128f3bd95"),
-                            bio = "test aşamsında kullanıcı biyografisi",
-                            birthdate = new DateTime(1993, 4, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            creationtsz = new DateTime(2022, 10, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            email = "hayrettin.gov@gmail.com",
-                            firstname = "Hayrettin",
-                            gender = 1,
-                            lastname = "Göv",
-                            lastupdatedtsz = new DateTime(2022, 10, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            phone = "05070053711",
-                            statusactive = true,
-                            statusvisibility = true
-                        },
-                        new
-                        {
-                            userid = new Guid("a94b6b4b-b72a-4ad9-8ee1-357128f3bd95"),
-                            bio = "test aşamsında kullanıcı biyografisi",
-                            birthdate = new DateTime(1990, 6, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            creationtsz = new DateTime(2022, 10, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            email = "victoria@gmail.com",
-                            firstname = "Victoria",
-                            gender = 2,
-                            lastname = "Mercedes",
-                            lastupdatedtsz = new DateTime(2022, 10, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            phone = "05070053723",
-                            statusactive = true,
-                            statusvisibility = true
-                        },
-                        new
-                        {
-                            userid = new Guid("b94b6b4b-b72a-4ad9-8ee1-357128f3bd95"),
-                            bio = "test aşamsında kullanıcı biyografisi",
-                            birthdate = new DateTime(1992, 4, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            creationtsz = new DateTime(2022, 10, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            email = "angela@gmail.com",
-                            firstname = "Angela",
-                            gender = 2,
-                            lastname = "Bear",
-                            lastupdatedtsz = new DateTime(2022, 10, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            phone = "05070053755",
-                            statusactive = true,
-                            statusvisibility = true
-                        });
                 });
 #pragma warning restore 612, 618
         }

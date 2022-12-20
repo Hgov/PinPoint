@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PinkPoint.Infrastructure.MapperService.Models.Base
+namespace PinPoint.Infrastructure.MapperService.Models.Base
 {
     public class AdditionalDomainDTO
     {

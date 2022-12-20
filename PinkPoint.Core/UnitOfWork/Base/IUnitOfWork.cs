@@ -1,6 +1,6 @@
-﻿using PinkPoint.Core.Repositories;
+﻿using PinPoint.Core.Repositories;
 
-namespace PinkPoint.Core.UnitOfWork.Base
+namespace PinPoint.Core.UnitOfWork.Base
 {
     public interface IUnitOfWork : IDisposable
     {

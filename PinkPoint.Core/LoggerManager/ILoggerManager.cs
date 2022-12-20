@@ -1,6 +1,6 @@
 ﻿
 
-namespace PinkPoint.Core.LoggerManager
+namespace PinPoint.Core.LoggerManager
 {
     public interface ILoggerManager
     {

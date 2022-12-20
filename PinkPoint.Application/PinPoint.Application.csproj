@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\PinkPoint.FluentValidation\PinkPoint.FluentValidation.csproj" />
+    <ProjectReference Include="..\PinkPoint.FluentValidation\PinPoint.FluentValidation.csproj" />
   </ItemGroup>
 
 </Project>

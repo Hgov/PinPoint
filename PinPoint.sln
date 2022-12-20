@@ -3,19 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32901.215
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PinkPoint.Data", "PinkPoint.Data\PinkPoint.Data.csproj", "{757A3285-DF5A-4E38-941A-D5B9DA6B8D5C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PinPoint.Data", "PinkPoint.Data\PinPoint.Data.csproj", "{757A3285-DF5A-4E38-941A-D5B9DA6B8D5C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PinkPoint.DataAccess", "PinkPoint.DataAccess\PinkPoint.DataAccess.csproj", "{EEAEBE8C-8E22-49C4-AD17-23C65DF30750}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PinPoint.DataAccess", "PinkPoint.DataAccess\PinPoint.DataAccess.csproj", "{EEAEBE8C-8E22-49C4-AD17-23C65DF30750}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PinkPoint.API", "PinkPoint.API\PinkPoint.API.csproj", "{B55F16DD-60BD-474C-AF0B-73EE5F48BE20}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PinPoint.API", "PinkPoint.API\PinPoint.API.csproj", "{B55F16DD-60BD-474C-AF0B-73EE5F48BE20}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PinkPoint.Application", "PinkPoint.Application\PinkPoint.Application.csproj", "{E1550FB5-CDF0-4510-AD9C-DB009E6FE89E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PinPoint.Application", "PinkPoint.Application\PinPoint.Application.csproj", "{E1550FB5-CDF0-4510-AD9C-DB009E6FE89E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PinkPoint.Core", "PinkPoint.Core\PinkPoint.Core.csproj", "{6FBAE31D-4E46-4A42-A1CE-231634838262}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PinPoint.Core", "PinkPoint.Core\PinPoint.Core.csproj", "{6FBAE31D-4E46-4A42-A1CE-231634838262}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PinkPoint.Infrastructure", "PinkPoint.Infrastructure\PinkPoint.Infrastructure.csproj", "{7D143BF3-6C1A-4CB4-8EF0-0DF82BB6147C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PinPoint.Infrastructure", "PinkPoint.Infrastructure\PinPoint.Infrastructure.csproj", "{7D143BF3-6C1A-4CB4-8EF0-0DF82BB6147C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PinkPoint.FluentValidation", "PinkPoint.FluentValidation\PinkPoint.FluentValidation.csproj", "{1F28600D-8468-4953-8839-B3E39E2A73A2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PinPoint.FluentValidation", "PinkPoint.FluentValidation\PinPoint.FluentValidation.csproj", "{1F28600D-8468-4953-8839-B3E39E2A73A2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

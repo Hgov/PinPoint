@@ -1,13 +1,13 @@
 ﻿using AutoMapper;
-using PinkPoint.Data.Domain;
-using PinkPoint.Infrastructure.MapperService.Models.User;
+using PinPoint.Data.Domain;
+using PinPoint.Infrastructure.MapperService.Models.User;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PinkPoint.Infrastructure.MapperService.Profiles
+namespace PinPoint.Infrastructure.MapperService.Profiles
 {
     public class UserProfile : Profile
     {

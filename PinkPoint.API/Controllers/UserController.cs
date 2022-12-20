@@ -1,13 +1,13 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using PinkPoint.Application.Interface;
-using PinkPoint.Application.Service;
-using PinkPoint.Core.LoggerManager;
-using PinkPoint.Data.Domain;
-using PinkPoint.DataAccess.Helpers;
-using PinkPoint.Infrastructure.MapperService.Models.User;
+using PinPoint.Application.Interface;
+using PinPoint.Application.Service;
+using PinPoint.Core.LoggerManager;
+using PinPoint.Data.Domain;
+using PinPoint.DataAccess.Helpers;
+using PinPoint.Infrastructure.MapperService.Models.User;
 
-namespace PinkPoint.API.Controllers
+namespace PinPoint.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

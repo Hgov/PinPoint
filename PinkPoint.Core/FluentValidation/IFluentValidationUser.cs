@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace PinkPoint.Core.FluentValidation
+namespace PinPoint.Core.FluentValidation
 {
     public interface IFluentValidationUser<User> where User : class
     {

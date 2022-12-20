@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using static PinkPoint.Data.Enums.Enums;
+using static PinPoint.Data.Enums.Enums;
 
-namespace PinkPoint.Data.Domain
+namespace PinPoint.Data.Domain
 {
     public class NLog
     {

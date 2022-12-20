@@ -1,4 +1,4 @@
-﻿namespace PinkPoint.Application.Interface
+﻿namespace PinPoint.Application.Interface
 {
     public interface IUserService<User> where User : class
     {

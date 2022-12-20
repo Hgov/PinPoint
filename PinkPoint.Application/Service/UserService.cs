@@ -1,14 +1,14 @@
 ﻿using FluentValidation;
-using PinkPoint.Application.Interface;
-using PinkPoint.Core.FluentValidation;
-using PinkPoint.Core.UnitOfWork.Base;
-using PinkPoint.Data.Domain;
-using PinkPoint.DataAccess.Helpers;
-using PinkPoint.FluentValidation.AbstractValidation;
-using PinkPoint.Infrastructure.Base;
-using PinkPoint.Infrastructure.UnitOfWork.Base;
+using PinPoint.Application.Interface;
+using PinPoint.Core.FluentValidation;
+using PinPoint.Core.UnitOfWork.Base;
+using PinPoint.Data.Domain;
+using PinPoint.DataAccess.Helpers;
+using PinPoint.FluentValidation.AbstractValidation;
+using PinPoint.Infrastructure.Base;
+using PinPoint.Infrastructure.UnitOfWork.Base;
 
-namespace PinkPoint.Application.Service
+namespace PinPoint.Application.Service
 {
     public class UserService : PinPointDataAccessHelper, IUserService<User>
     {
@@ -17,7 +17,7 @@ namespace PinkPoint.Application.Service
 
         public UserService(DataContext dataContext) : base(dataContext)
         {
-            _uow = new UnitOfWork(_dataContext);
+            _uow = new Infrastructure.UnitOfWork.Base.UnitOfWork(_dataContext);
             _userValidator = new UserValidator(_dataContext);
         }
 

@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
-using PinkPoint.Data.Domain.Base;
+using PinPoint.Data.Domain.Base;
 
-namespace PinkPoint.FluentValidation.AbstractValidation
+namespace PinPoint.FluentValidation.AbstractValidation
 {
     public class AdditionalDomainValidator : AbstractValidator<AdditionalDomain>
     {

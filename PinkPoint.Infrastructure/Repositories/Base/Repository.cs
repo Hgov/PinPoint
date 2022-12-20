@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using PinkPoint.Core.Repositories.Base;
-using PinkPoint.DataAccess.Helpers;
+using PinPoint.Core.Repositories.Base;
+using PinPoint.DataAccess.Helpers;
 
-namespace PinkPoint.Infrastructure.Repositories.Base
+namespace PinPoint.Infrastructure.Repositories.Base
 {
     public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
     {

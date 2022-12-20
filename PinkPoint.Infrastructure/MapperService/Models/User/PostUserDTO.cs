@@ -1,7 +1,7 @@
 ﻿
-using static PinkPoint.Data.Enums.Enums;
+using static PinPoint.Data.Enums.Enums;
 
-namespace PinkPoint.Infrastructure.MapperService.Models.User
+namespace PinPoint.Infrastructure.MapperService.Models.User
 {
     public class PostUserDTO
     {

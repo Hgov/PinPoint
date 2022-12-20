@@ -1,6 +1,6 @@
 ﻿using System.Globalization;
 
-namespace PinkPoint.Application.ApplicationException
+namespace PinPoint.Application.ApplicationException
 {
     public class AppException : Exception
     {

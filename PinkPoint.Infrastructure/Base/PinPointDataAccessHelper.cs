@@ -1,6 +1,6 @@
-﻿using PinkPoint.DataAccess.Helpers;
+﻿using PinPoint.DataAccess.Helpers;
 
-namespace PinkPoint.Infrastructure.Base
+namespace PinPoint.Infrastructure.Base
 {
     public class PinPointDataAccessHelper
     {
