@@ -1,6 +1,3 @@
-/*
-loglamayý veritabanýna kaydetmek için yazýldý
-*/
 CREATE PROCEDURE [dbo].[SP_Nlog_Insert] (
 @machineName nvarchar(200),
 @logged datetime,
@@ -12,6 +9,7 @@ CREATE PROCEDURE [dbo].[SP_Nlog_Insert] (
 @exception nvarchar(max)
 ) AS
 BEGIN
+SET @logged = COALESCE( @logged , GETDATE() ) 
 INSERT INTO [dbo].[NLogs] (
 [MachineName],
 [Logged],
