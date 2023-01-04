@@ -16,34 +16,24 @@ namespace PinPoint.API.Controllers
     public class UserController : Controller
     {
         private IUserService<User> _userService;
-        private readonly ILoggerManager _logger;
         private readonly DataContext _dataContext;
-        private readonly IMapper _mapper;
-        public UserController(DataContext dataContext, IMapper mapper, ILoggerManager logger)
+        public UserController(DataContext dataContext, IMapper mapper)
         {
             _dataContext = dataContext;
-            _userService = new UserService(_dataContext);
-            _mapper = mapper;
-            _logger = logger;
+            _userService = new UserService(_dataContext,mapper);
         }
         // GET: UserController
         [HttpGet("list")]
         public async Task<IActionResult> Index()
         {
-            var result = await _userService.GetUserListAsync();
-            var _mapped = _mapper.Map<List<GetUserDTO>>(result);
-            _logger.LogInfo("asdasdasd");
-
-            return Ok(_mapped);
+            return Json(await _userService.GetUserListAsync());
         }
 
         // GET: UserController/Details/5
         [HttpGet("detail/{id?}")]
         public async Task<IActionResult> Details(Guid id)
         {
-            User result = await _userService.GetByIdUserAsync(id);
-            var _mapped = _mapper.Map<GetUserDTO>(result);
-            return Ok(_mapped);
+            return Json(await _userService.GetByIdUserAsync(id));
         }
 
 
@@ -52,12 +42,7 @@ namespace PinPoint.API.Controllers
         //[ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(PostUserDTO postUserDTO)
         {
-            var _mapped = _mapper.Map<User>(postUserDTO);
-            var result = await _userService.PostUserAsync(_mapped);
-            return Ok(new
-            {
-                CreatedUserId = result.user_id
-            });
+            return Json(await _userService.PostUserAsync(postUserDTO));
         }
 
         //// POST: UserController/Create

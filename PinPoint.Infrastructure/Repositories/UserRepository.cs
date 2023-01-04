@@ -1,7 +1,9 @@
-﻿using PinPoint.Core.Repositories;
+﻿using Microsoft.EntityFrameworkCore;
+using PinPoint.Core.Repositories;
 using PinPoint.Data.Domain;
 using PinPoint.DataAccess.Helpers;
 using PinPoint.Infrastructure.Repositories.Base;
+using System.Net.Http.Headers;
 
 namespace PinPoint.Infrastructure.Repositories
 {
@@ -13,6 +15,8 @@ namespace PinPoint.Infrastructure.Repositories
         }
         public DataContext dataContext { get { return _Context as DataContext; } }
 
+        public async Task<bool> IsEmailExist(string email) => await _Context.Users.AnyAsync(x=>x.email==email);
+        public async Task<bool> IsUserByIdExist(Guid id) => await _Context.Users.AnyAsync(x => x.user_id == id);
         //public async Task<IEnumerable<User>> GetAsync()
         //{
         //    return await _Context.Users
