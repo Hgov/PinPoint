@@ -1,9 +1,13 @@
-﻿using Microsoft.AspNetCore.Components.Forms;
-using PinPoint.Core.UnitOfWork.Base;
+﻿using PinPoint.Core.UnitOfWork.Base;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using static PinPoint.Data.Enums.Enums;
 
-namespace PinPoint.FluentValidation.Helper
+namespace PinPoint.Infrastructure.FluentValidation.FluentValidationHelper
 {
     public class FluentValidationHelper
     {

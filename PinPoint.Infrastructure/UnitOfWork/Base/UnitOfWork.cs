@@ -1,7 +1,10 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Identity;
+using PinPoint.Core.FluentValidation;
 using PinPoint.Core.LoggerManager;
 using PinPoint.Core.Repositories;
 using PinPoint.Core.UnitOfWork.Base;
+using PinPoint.Data.Domain;
 using PinPoint.DataAccess.Helpers;
 using PinPoint.Infrastructure.LoggerService;
 using PinPoint.Infrastructure.MapperService.Profiles;
@@ -15,14 +18,17 @@ namespace PinPoint.Infrastructure.UnitOfWork.Base
 
         public UnitOfWork(DataContext DataContext)
         {
+            loggerManager = new LoggerManager();
             _DataContext = DataContext;
             userRepository = new UserRepository(_DataContext);
-            loggerManager = new LoggerManager();
-            
+           fluentValidationUser=new FluentValidation.AbstractValidators.UserValidator(_DataContext);
+
         }
         public IUserRepository userRepository { get; private set; }
 
         public ILoggerManager loggerManager { get; private set; }
+
+        public IFluentValidation<User> fluentValidationUser { get; private set; }
 
         public int Complete()
         {

@@ -3,24 +3,23 @@ using PinPoint.Core.FluentValidation;
 using PinPoint.Core.UnitOfWork.Base;
 using PinPoint.Data.Domain;
 using PinPoint.DataAccess.Helpers;
-using PinPoint.FluentValidation.Helper;
-using PinPoint.Infrastructure.UnitOfWork.Base;
 using System.Text.RegularExpressions;
 
-namespace PinPoint.FluentValidation.AbstractValidation
+namespace PinPoint.Infrastructure.FluentValidation.AbstractValidators
 {
     public class UserValidator : AbstractValidator<User>, IFluentValidation<User>
     {
-        private readonly FluentValidationHelper _fluentValidationHelper;
+        private readonly FluentValidationHelper.FluentValidationHelper _fluentValidationHelper;
         private readonly IUnitOfWork _uow;
         private readonly DataContext _dataContext;
         public UserValidator(DataContext dataContext)
         {
             _dataContext = dataContext;
-            _uow = new UnitOfWork(_dataContext);
-            _fluentValidationHelper = new FluentValidationHelper(_uow);
+            _uow = new UnitOfWork.Base.UnitOfWork(_dataContext);
+            _fluentValidationHelper = new FluentValidationHelper.FluentValidationHelper(_uow);
         }
-        public AbstractValidator<User> GetRules() {
+        public AbstractValidator<User> GetRules()
+        {
             return this;
         }
         public AbstractValidator<User> GetByIdRules()

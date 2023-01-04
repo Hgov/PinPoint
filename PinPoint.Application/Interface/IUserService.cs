@@ -8,6 +8,6 @@ namespace PinPoint.Application.Interface
         Task<ServiceResponse<GetUserDTO>> GetUserListAsync();
         Task<ServiceResponse<GetUserDTO>> GetByIdUserAsync(Guid id);
         Task<ServiceResponse<GetUserDTO>> PostUserAsync(PostUserDTO postUserDTO);
-        Task<User> PutUserAsync(User user);
+        Task<ServiceResponse<GetUserDTO>> PostBulkUserAsync(IEnumerable<PostUserDTO> postUserDTO);
     }
 }

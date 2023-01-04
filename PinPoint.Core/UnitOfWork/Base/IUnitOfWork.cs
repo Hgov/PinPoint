@@ -8,8 +8,9 @@ namespace PinPoint.Core.UnitOfWork.Base
 {
     public interface IUnitOfWork : IDisposable
     {
-        IUserRepository userRepository { get; }
         ILoggerManager loggerManager { get; }
+        IUserRepository userRepository { get; }
+        IFluentValidation<User> fluentValidationUser { get; }
         int Complete();
     }
 }

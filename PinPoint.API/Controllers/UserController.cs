@@ -45,22 +45,13 @@ namespace PinPoint.API.Controllers
             return Json(await _userService.PostUserAsync(postUserDTO));
         }
 
-        //// POST: UserController/Create
-        //[HttpPost("bulkcreate")]
-        ////[ValidateAntiForgeryToken]
-        //public IActionResult BulkCreate(IEnumerable<User> users)
-        //{
-        //    try
-        //    {
-        //        var result = _uow.userRepository.AddRangeAsync(users);
-        //        _uow.Complete();
-        //        return Ok("Success Add");
-        //    }
-        //    catch (AppException ex)
-        //    {
-        //        return BadRequest(new { message = ex.Message });
-        //    }
-        //}
+        // POST: UserController/Create
+        [HttpPost("bulkcreate")]
+        //[ValidateAntiForgeryToken]
+        public async Task<IActionResult> BulkCreate(IEnumerable<PostUserDTO> PostUserDTOs)
+        {
+            return null;
+        }
 
         //// POST: UserController/Edit/5
         //[HttpPut("edit/{id}")]

@@ -10,9 +10,9 @@ namespace PinPoint.Core.FluentValidation
 {
     public interface IFluentValidation<TEntity> where TEntity : class
     {
-        AbstractValidator<User> GetRules();
-        AbstractValidator<User> GetByIdRules();
-        AbstractValidator<User> PostRules();
-        AbstractValidator<User> PutRules();
+        AbstractValidator<TEntity> GetRules();
+        AbstractValidator<TEntity> GetByIdRules();
+        AbstractValidator<TEntity> PostRules();
+        AbstractValidator<TEntity> PutRules();
     }
 }

@@ -9,7 +9,7 @@ using PinPoint.Core.LoggerManager;
 using PinPoint.Core.UnitOfWork.Base;
 using PinPoint.Data.Domain;
 using PinPoint.DataAccess.Helpers;
-using PinPoint.FluentValidation.AbstractValidation;
+using PinPoint.Infrastructure.FluentValidation.AbstractValidators;
 using PinPoint.Infrastructure.MapperService.Models.User;
 using PinPoint.Infrastructure.Response;
 using PinPoint.Infrastructure.UnitOfWork.Base;
@@ -22,13 +22,11 @@ namespace PinPoint.Application.Service
     {
         public DataContext _dataContext;
         private readonly IUnitOfWork _uow;
-        private readonly IFluentValidation<User> _userValidator;
         private readonly IMapper _mapper;
         public UserService(DataContext dataContext,IMapper mapper)
         {
             _dataContext = dataContext;
             _uow = new UnitOfWork(_dataContext);
-            _userValidator = new UserValidator(_dataContext);
             _mapper= mapper;
         }
 
@@ -53,7 +51,7 @@ namespace PinPoint.Application.Service
         {
             ServiceResponse<GetUserDTO> _serviceResponse = new ServiceResponse<GetUserDTO>();
             var _user = await _uow.userRepository.GetByIDAsync(id);
-            var results = _userValidator.GetByIdRules().Validate(_user);
+            var results = _uow.fluentValidationUser.GetByIdRules().Validate(_user);
             if (!results.IsValid)
             {
                 List<Error> _errorObj = new List<Error>();
@@ -73,7 +71,7 @@ namespace PinPoint.Application.Service
         {
             ServiceResponse<GetUserDTO> _serviceResponse = new ServiceResponse<GetUserDTO>();
             var _user = _mapper.Map<User>(postUserDTO);
-            var results = _userValidator.PostRules().Validate(_user);
+            var results = _uow.fluentValidationUser.PostRules().Validate(_user);
             if (!results.IsValid)
             {
                 List<Error> _errorObj = new List<Error>();
@@ -92,7 +90,7 @@ namespace PinPoint.Application.Service
             return _serviceResponse;
         }
 
-        public Task<User> PutUserAsync(User user)
+        public Task<ServiceResponse<GetUserDTO>> PostBulkUserAsync(IEnumerable<PostUserDTO> postUserDTO)
         {
             throw new NotImplementedException();
         }
