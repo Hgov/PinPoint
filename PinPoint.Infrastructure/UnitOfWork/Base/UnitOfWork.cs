@@ -21,7 +21,7 @@ namespace PinPoint.Infrastructure.UnitOfWork.Base
             loggerManager = new LoggerManager();
             _DataContext = DataContext;
             userRepository = new UserRepository(_DataContext);
-           fluentValidationUser=new FluentValidation.AbstractValidators.UserValidator(_DataContext);
+            fluentValidationUser = new FluentValidation.AbstractValidators.UserValidator(userRepository);
 
         }
         public IUserRepository userRepository { get; private set; }

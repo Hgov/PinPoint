@@ -1,20 +1,14 @@
 ﻿using AutoMapper;
-using FluentValidation;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using PinPoint.Application.Interface;
-using PinPoint.Core.FluentValidation;
-using PinPoint.Core.LoggerManager;
 using PinPoint.Core.UnitOfWork.Base;
 using PinPoint.Data.Domain;
 using PinPoint.DataAccess.Helpers;
-using PinPoint.Infrastructure.FluentValidation.AbstractValidators;
 using PinPoint.Infrastructure.MapperService.Models.User;
 using PinPoint.Infrastructure.Response;
 using PinPoint.Infrastructure.UnitOfWork.Base;
-using System.ComponentModel.DataAnnotations;
-using System.Net;
+using System.Collections.Generic;
 
 namespace PinPoint.Application.Service
 {
@@ -23,17 +17,17 @@ namespace PinPoint.Application.Service
         public DataContext _dataContext;
         private readonly IUnitOfWork _uow;
         private readonly IMapper _mapper;
-        public UserService(DataContext dataContext,IMapper mapper)
+        public UserService(DataContext dataContext, IMapper mapper)
         {
             _dataContext = dataContext;
             _uow = new UnitOfWork(_dataContext);
-            _mapper= mapper;
+            _mapper = mapper;
         }
 
         public async Task<ServiceResponse<GetUserDTO>> GetUserListAsync()
         {
-            ServiceResponse<GetUserDTO> _serviceResponse=new ServiceResponse<GetUserDTO>(); 
-            _uow.loggerManager.LogInfo("Test"+DateTime.Now);
+            ServiceResponse<GetUserDTO> _serviceResponse = new ServiceResponse<GetUserDTO>();
+            _uow.loggerManager.LogInfo("Test" + DateTime.Now);
             var _user = _mapper.Map<List<GetUserDTO>>(await _uow.userRepository.GetAllAsync());
             if (!_user.Any())
             {
@@ -43,7 +37,7 @@ namespace PinPoint.Application.Service
                 _serviceResponse.statusCode = StatusCodes.Status400BadRequest;
                 return _serviceResponse;
             }
-            _serviceResponse.Entity= _user;
+            _serviceResponse.Entity = _user;
             _serviceResponse.statusCode = StatusCodes.Status200OK;
             return _serviceResponse;
         }
@@ -55,15 +49,15 @@ namespace PinPoint.Application.Service
             if (!results.IsValid)
             {
                 List<Error> _errorObj = new List<Error>();
-                foreach (var item in results.Errors)
+                foreach (var ValidateItem in results.Errors)
                 {
-                    _errorObj.Add(new Error() { errorCode = item.ErrorCode, propertyName = item.PropertyName, errorMessage = item.ErrorMessage });
+                    _errorObj.Add(new Error() { errorCode = ValidateItem.ErrorCode, propertyName = ValidateItem.PropertyName + " (" + ValidateItem.AttemptedValue + ") ", errorMessage = ValidateItem.ErrorMessage });
                 }
                 _serviceResponse.error = _errorObj;
                 _serviceResponse.statusCode = StatusCodes.Status400BadRequest;
                 return _serviceResponse;
             }
-            _serviceResponse.Entity= _mapper.Map<List<GetUserDTO>>(_mapper.Map<GetUserDTO>(_user));
+            _serviceResponse.Entity = _mapper.Map<List<GetUserDTO>>(_mapper.Map<GetUserDTO>(_user));
             _serviceResponse.statusCode = StatusCodes.Status200OK;
             return _serviceResponse;
         }
@@ -75,9 +69,9 @@ namespace PinPoint.Application.Service
             if (!results.IsValid)
             {
                 List<Error> _errorObj = new List<Error>();
-                foreach (var item in results.Errors)
+                foreach (var ValidateItem in results.Errors)
                 {
-                    _errorObj.Add(new Error() { errorCode = item.ErrorCode, propertyName = item.PropertyName, errorMessage = item.ErrorMessage });
+                    _errorObj.Add(new Error() { errorCode = ValidateItem.ErrorCode, propertyName = ValidateItem.PropertyName + " (" + ValidateItem.AttemptedValue + ") ", errorMessage = ValidateItem.ErrorMessage });
                 }
                 _serviceResponse.error = _errorObj;
                 _serviceResponse.statusCode = StatusCodes.Status400BadRequest;
@@ -85,14 +79,42 @@ namespace PinPoint.Application.Service
             }
             _user = await _uow.userRepository.AddAsync(_user);
             _uow.Complete();
-            _serviceResponse.Entity= _mapper.Map<List<GetUserDTO>>(_mapper.Map<GetUserDTO>(_user));
+            _serviceResponse.Entity = _mapper.Map<List<GetUserDTO>>(_mapper.Map<GetUserDTO>(_user));
             _serviceResponse.statusCode = StatusCodes.Status200OK;
             return _serviceResponse;
         }
 
-        public Task<ServiceResponse<GetUserDTO>> PostBulkUserAsync(IEnumerable<PostUserDTO> postUserDTO)
+        public async Task<ServiceResponse<GetUserDTO>> PostBulkUserAsync(IEnumerable<PostUserDTO> postUserDTO)
         {
-            throw new NotImplementedException();
+            ServiceResponse<GetUserDTO> _serviceResponse = new ServiceResponse<GetUserDTO>();
+            List<Error> _errorObj = new List<Error>();
+            foreach (var postUserDTOItem in postUserDTO)
+            {
+                var _user = _mapper.Map<User>(postUserDTOItem);
+                var results = _uow.fluentValidationUser.PostRules().Validate(_user);
+                if (!results.IsValid)
+                {
+                    foreach (var ValidateItem in results.Errors)
+                    {
+                        _errorObj.Add(new Error() { errorCode = ValidateItem.ErrorCode, propertyName = ValidateItem.PropertyName + " (" + ValidateItem.AttemptedValue + ") ", errorMessage = ValidateItem.ErrorMessage });
+                    }
+                    _serviceResponse.error = _errorObj;
+                    _serviceResponse.statusCode = StatusCodes.Status400BadRequest;
+                    return _serviceResponse;
+                }
+            }
+
+            var getUserDTO = new List<GetUserDTO>();
+            foreach (var postUserDTOItem in postUserDTO)
+            {
+                var _user = await _uow.userRepository.AddAsync(_mapper.Map<User>(postUserDTOItem));
+                _uow.Complete();
+                getUserDTO.Add(_mapper.Map<GetUserDTO>(_user) );
+               
+            }
+            _serviceResponse.Entity=getUserDTO;
+            _serviceResponse.statusCode = StatusCodes.Status200OK;
+            return _serviceResponse;
         }
     }
 }

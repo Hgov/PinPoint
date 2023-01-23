@@ -21,11 +21,23 @@ namespace PinPoint.Infrastructure.MapperService.Profiles
             return new List<T>() { source };
         }
     }
+    public class IEnumerableToListConverter<T> : ITypeConverter<IEnumerable<T>, List<T>>
+    {
+        public List<T> Convert(IEnumerable<T> source, List<T> destination, ResolutionContext context)
+        {
+            destination = source.ToList();
+            return destination;
+        }
+    }
+
+
 
     public class UserProfile : Profile
     {
         public UserProfile()
         {
+            AllowNullCollections = true;
+            
             #region Get Map
             CreateMap<GetUserDTO, User>();
             CreateMap<User, GetUserDTO>();
@@ -34,6 +46,7 @@ namespace PinPoint.Infrastructure.MapperService.Profiles
             CreateMap<List<GetUserDTO>, User>();
 
             CreateMap<GetUserDTO, List<GetUserDTO>>().ConvertUsing<SingleObjectToListConverter<GetUserDTO>>();
+
             #endregion
 
             #region Post Map
@@ -51,6 +64,8 @@ namespace PinPoint.Infrastructure.MapperService.Profiles
               opt => opt.MapFrom(src => $"{true}")
               );
             CreateMap<User, PostUserDTO>();
+
+            CreateMap<IEnumerable<PostUserDTO>, List<PostUserDTO>>().ConvertUsing<IEnumerableToListConverter<PostUserDTO>>(); 
             #endregion
 
             #region Put Map

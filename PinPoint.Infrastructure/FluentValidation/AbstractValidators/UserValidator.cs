@@ -1,8 +1,11 @@
 ﻿using FluentValidation;
 using PinPoint.Core.FluentValidation;
+using PinPoint.Core.Repositories;
 using PinPoint.Core.UnitOfWork.Base;
 using PinPoint.Data.Domain;
 using PinPoint.DataAccess.Helpers;
+using PinPoint.Infrastructure.MapperService.Models.User;
+using PinPoint.Infrastructure.Repositories;
 using System.Text.RegularExpressions;
 
 namespace PinPoint.Infrastructure.FluentValidation.AbstractValidators
@@ -10,13 +13,9 @@ namespace PinPoint.Infrastructure.FluentValidation.AbstractValidators
     public class UserValidator : AbstractValidator<User>, IFluentValidation<User>
     {
         private readonly FluentValidationHelper.FluentValidationHelper _fluentValidationHelper;
-        private readonly IUnitOfWork _uow;
-        private readonly DataContext _dataContext;
-        public UserValidator(DataContext dataContext)
+        public UserValidator(IUserRepository userRepository)
         {
-            _dataContext = dataContext;
-            _uow = new UnitOfWork.Base.UnitOfWork(_dataContext);
-            _fluentValidationHelper = new FluentValidationHelper.FluentValidationHelper(_uow);
+            _fluentValidationHelper = new FluentValidationHelper.FluentValidationHelper(userRepository);
         }
         public AbstractValidator<User> GetRules()
         {
@@ -37,7 +36,6 @@ namespace PinPoint.Infrastructure.FluentValidation.AbstractValidators
             RuleFor(c => c.birth_date).Must(_fluentValidationHelper.BeAValidDate).WithMessage("{PropertyName} not valid");
             return this;
         }
-
         public AbstractValidator<User> PutRules()
         {
             RuleFor(c => c.first_name).NotEmpty().WithMessage("{PropertyName} is required.");

@@ -48,9 +48,9 @@ namespace PinPoint.API.Controllers
         // POST: UserController/Create
         [HttpPost("bulkcreate")]
         //[ValidateAntiForgeryToken]
-        public async Task<IActionResult> BulkCreate(IEnumerable<PostUserDTO> PostUserDTOs)
+        public async Task<IActionResult> BulkCreate(IEnumerable<PostUserDTO> postUserDTO)
         {
-            return null;
+            return Json(await _userService.PostBulkUserAsync(postUserDTO));
         }
 
         //// POST: UserController/Edit/5

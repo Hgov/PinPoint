@@ -1,4 +1,8 @@
-﻿using PinPoint.Core.UnitOfWork.Base;
+﻿using PinPoint.Core.Repositories;
+using PinPoint.Core.UnitOfWork.Base;
+using PinPoint.DataAccess.Helpers;
+using PinPoint.Infrastructure.Repositories;
+using PinPoint.Infrastructure.UnitOfWork.Base;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,10 +15,10 @@ namespace PinPoint.Infrastructure.FluentValidation.FluentValidationHelper
 {
     public class FluentValidationHelper
     {
-        public IUnitOfWork _uow;
-        public FluentValidationHelper(IUnitOfWork uow)
+        public IUserRepository _userRepository;
+        public FluentValidationHelper(IUserRepository userRepository)
         {
-            _uow = uow;
+            _userRepository =userRepository;
         }
         public bool GenderBeAValidParameter(Gender? arg)
         {
@@ -44,15 +48,15 @@ namespace PinPoint.Infrastructure.FluentValidation.FluentValidationHelper
 
         public bool IsEmailExist(string Email)
         {
-            return !_uow.userRepository.IsEmailExist(Email).Result;
+            return !_userRepository.IsEmailExist(Email).Result;
         }
         public bool IsUserByIdExist(Guid? id)
         {
-            return _uow.userRepository.IsUserByIdExist((Guid)id).Result;
+            return _userRepository.IsUserByIdExist((Guid)id).Result;
         }
         public bool IsUserAllExist(Guid? id)
         {
-            return _uow.userRepository.GetAllAsync().Result.Count() > 0 ? true : false;
+            return _userRepository.GetAllAsync().Result.Count() > 0 ? true : false;
         }
     }
 }
