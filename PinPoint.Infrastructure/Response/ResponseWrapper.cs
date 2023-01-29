@@ -40,11 +40,6 @@ namespace PinPoint.Infrastructure.Response
                 string? readToEnd = new StreamReader(memoryStream).ReadToEnd();
                 JObject readToEndSingle = JObject.Parse(readToEnd);
                 int? statusCode = (int?)readToEndSingle["statusCode"];
-                //readToEndSingle.Property("formatters").Remove();
-                //readToEndSingle.Property("contentTypes").Remove();
-                //readToEndSingle.Property("declaredType").Remove();
-                //readToEndSingle.Property("statusCode").Remove();
-
                 object objResult = JsonConvert.DeserializeObject<ResponseWrapperData>(readToEndSingle.ToString());
                 CommonApiResponse? result = null;
                 if (statusCode >= 100 && statusCode < 200)
@@ -132,11 +127,8 @@ namespace PinPoint.Infrastructure.Response
 
     public class ResponseWrapperData
     {
-        public string value
-        {
-            get;
-            set;
-        }
+        public string value { get; set; }
+        //public int statusCode { get; set; }
     }
 
 }

@@ -32,7 +32,7 @@ namespace PinPoint.Application.Service
             if (!_user.Any())
                 return NotFound("No records found.");
 
-            
+            var dd = new ResponseWrapper();
             return Ok(_user.ToList());
         }
         public async Task<ServiceResponse<GetUserDTO>> GetByIdUserAsync(Guid id)
