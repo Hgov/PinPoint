@@ -60,7 +60,7 @@ if (app.Environment.IsDevelopment())
     });
 
 }
-
+app.UseResponseWrapper();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseAuthorization();

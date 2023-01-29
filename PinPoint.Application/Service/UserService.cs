@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using PinPoint.Application.ApplicationException;
 using PinPoint.Application.Interface;
 using PinPoint.Core.UnitOfWork.Base;
 using PinPoint.Data.Domain;
@@ -12,7 +14,7 @@ using System.Collections.Generic;
 
 namespace PinPoint.Application.Service
 {
-    public class UserService : IUserService<User>
+    public class UserService : ControllerBase, IUserService<User>
     {
         public DataContext _dataContext;
         private readonly IUnitOfWork _uow;
@@ -24,22 +26,14 @@ namespace PinPoint.Application.Service
             _mapper = mapper;
         }
 
-        public async Task<ServiceResponse<GetUserDTO>> GetUserListAsync()
+        public async Task<IActionResult> GetUserListAsync()
         {
-            ServiceResponse<GetUserDTO> _serviceResponse = new ServiceResponse<GetUserDTO>();
-            _uow.loggerManager.LogInfo("Test" + DateTime.Now);
-            var _user = _mapper.Map<List<GetUserDTO>>(await _uow.userRepository.GetAllAsync());
+            IEnumerable<GetUserDTO> _user = _mapper.Map<List<GetUserDTO>>(await _uow.userRepository.GetAllAsync());
             if (!_user.Any())
-            {
-                List<Error> _errorObj = new List<Error>();
-                _errorObj.Add(new Error() { errorMessage = "No records found." });
-                _serviceResponse.error = _errorObj;
-                _serviceResponse.statusCode = StatusCodes.Status400BadRequest;
-                return _serviceResponse;
-            }
-            _serviceResponse.Entity = _user;
-            _serviceResponse.statusCode = StatusCodes.Status200OK;
-            return _serviceResponse;
+                return NotFound("No records found.");
+
+            
+            return Ok(_user.ToList());
         }
         public async Task<ServiceResponse<GetUserDTO>> GetByIdUserAsync(Guid id)
         {
@@ -109,10 +103,10 @@ namespace PinPoint.Application.Service
             {
                 var _user = await _uow.userRepository.AddAsync(_mapper.Map<User>(postUserDTOItem));
                 _uow.Complete();
-                getUserDTO.Add(_mapper.Map<GetUserDTO>(_user) );
-               
+                getUserDTO.Add(_mapper.Map<GetUserDTO>(_user));
+
             }
-            _serviceResponse.Entity=getUserDTO;
+            _serviceResponse.Entity = getUserDTO;
             _serviceResponse.statusCode = StatusCodes.Status200OK;
             return _serviceResponse;
         }
