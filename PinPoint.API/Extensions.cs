@@ -1,4 +1,5 @@
 ﻿
+using PinPoint.API.Middleware;
 using PinPoint.Core.LoggerManager;
 using PinPoint.Infrastructure.LoggerService;
 using PinPoint.Infrastructure.MapperService.Profiles;
@@ -17,7 +18,7 @@ namespace PinPoint.API
         }
         public static IApplicationBuilder UseResponseWrapper(this IApplicationBuilder builder)
         {
-            return builder.UseMiddleware<ResponseWrapper>();
+            return builder.UseMiddleware<ResponseWrapperMiddleware>();
         }
     }
 
