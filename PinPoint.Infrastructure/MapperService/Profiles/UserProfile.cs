@@ -30,7 +30,6 @@ namespace PinPoint.Infrastructure.MapperService.Profiles
     }
 
 
-
     public class UserProfile : Profile
     {
         public UserProfile()
