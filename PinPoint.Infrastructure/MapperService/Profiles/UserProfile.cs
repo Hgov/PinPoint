@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc.Diagnostics;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using PinPoint.Data.Domain;
 using PinPoint.Infrastructure.MapperService.Models.User;
-using PinPoint.Infrastructure.Response;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Core.Metadata.Edm;

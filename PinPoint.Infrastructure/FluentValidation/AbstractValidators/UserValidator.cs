@@ -23,7 +23,6 @@ namespace PinPoint.Infrastructure.FluentValidation.AbstractValidators
         }
         public AbstractValidator<User> GetByIdRules()
         {
-            RuleFor(c => c.user_id).Must(_fluentValidationHelper.IsUserByIdExist).WithMessage("{PropertyName} No records found.");
             return this;
         }
         public AbstractValidator<User> PostRules()

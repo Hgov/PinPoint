@@ -1,7 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 using PinPoint.Infrastructure.LoggerService;
-using PinPoint.Infrastructure.Response;
 using System.Net;
 using PinPoint.Infrastructure.ResponseWrapper;
 
@@ -18,8 +17,8 @@ namespace PinPoint.API.Middleware
         }
         public class ResponseWrapperData
         {
-            public string value { get; set; }
-            //public int statusCode { get; set; }
+            public object value { get; set; }
+            public int statusCode { get; set; }
         }
         public async Task Invoke(HttpContext context)
         {

@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Newtonsoft.Json;
 using System.Net;
 using System.Runtime.Serialization;
 
@@ -33,8 +35,6 @@ namespace PinPoint.Infrastructure.ResponseWrapper
 
         [DataMember(EmitDefaultValue = false)]
         public object Error { get; set; }
-
-
         protected ResponseWrapperManager(HttpContext context,  object? Result = null, object? Error = null)
         {
             this.requestUrl = context.Request.GetDisplayUrl();

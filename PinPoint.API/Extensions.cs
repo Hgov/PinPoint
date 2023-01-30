@@ -3,7 +3,6 @@ using PinPoint.API.Middleware;
 using PinPoint.Core.LoggerManager;
 using PinPoint.Infrastructure.LoggerService;
 using PinPoint.Infrastructure.MapperService.Profiles;
-using PinPoint.Infrastructure.Response;
 
 namespace PinPoint.API
 {
