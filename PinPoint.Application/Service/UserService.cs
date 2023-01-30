@@ -58,7 +58,7 @@ namespace PinPoint.Application.Service
             _uow.Complete();
             return Ok(_mapper.Map<List<GetUserDTO>>(_mapper.Map<GetUserDTO>(_user)));
         }
-
+         
         public async Task<IActionResult> PostBulkUserAsync(IEnumerable<PostUserDTO> postUserDTO)
         {
             List<ValidationError> _errorObj = new List<ValidationError>();
