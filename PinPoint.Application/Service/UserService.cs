@@ -74,7 +74,7 @@ namespace PinPoint.Application.Service
                     }
                     return BadRequest(_errorObj);
                 }
-            }
+            } 
             var bulkPostTogetUserDTO = new List<GetUserDTO>();
             foreach (var postUserDTOItem in postUserDTO)
             {
