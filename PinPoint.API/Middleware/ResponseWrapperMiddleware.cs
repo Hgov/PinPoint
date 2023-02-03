@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using PinPoint.Infrastructure.LoggerService;
 using System.Net;
 using PinPoint.Infrastructure.ResponseWrapper;
+using System.Runtime.Serialization;
 
 namespace PinPoint.API.Middleware
 {
@@ -15,9 +16,13 @@ namespace PinPoint.API.Middleware
             loggerManager = new LoggerManager();
             _next = next;
         }
+
+
         public class ResponseWrapperData
         {
             public object value { get; set; }
+            //public string? title { get; set; }
+            //public object errors { get; set; }
             public int statusCode { get; set; }
         }
         public async Task Invoke(HttpContext context)

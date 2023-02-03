@@ -25,7 +25,6 @@ namespace PinPoint.Application.Service
             _uow = new UnitOfWork(_dataContext);
             _mapper = mapper;
         }
-
         public async Task<IActionResult> GetUserListAsync()
         {
             IEnumerable<GetUserDTO> _user = _mapper.Map<List<GetUserDTO>>(await _uow.userRepository.GetAllAsync());
@@ -44,7 +43,7 @@ namespace PinPoint.Application.Service
         public async Task<IActionResult> PostUserAsync(PostUserDTO postUserDTO)
         {
             var _user = _mapper.Map<User>(postUserDTO);
-            var results = _uow.fluentValidationUser.PostRules().Validate(_user);
+            var results = _uow.fluentValidationUser.PostValidationRules().Validate(_user);
             if (!results.IsValid)
             {
                 List<ValidationError> _errorObj = new List<ValidationError>();
@@ -58,14 +57,13 @@ namespace PinPoint.Application.Service
             _uow.Complete();
             return Ok(_mapper.Map<List<GetUserDTO>>(_mapper.Map<GetUserDTO>(_user)));
         }
-         
         public async Task<IActionResult> PostBulkUserAsync(IEnumerable<PostUserDTO> postUserDTO)
         {
             List<ValidationError> _errorObj = new List<ValidationError>();
             foreach (var postUserDTOItem in postUserDTO)
             {
                 var _user = _mapper.Map<User>(postUserDTOItem);
-                var results = _uow.fluentValidationUser.PostRules().Validate(_user);
+                var results = _uow.fluentValidationUser.PostValidationRules().Validate(_user);
                 if (!results.IsValid)
                 {
                     foreach (var ValidateItem in results.Errors)
@@ -83,6 +81,38 @@ namespace PinPoint.Application.Service
                 bulkPostTogetUserDTO.Add(_mapper.Map<GetUserDTO>(_user));
             }
             return Ok(bulkPostTogetUserDTO);
+        }
+
+        public async Task<IActionResult> PutUserAsync(Guid id, PutUserDTO putUserDTO)
+        {
+            try
+            {
+                var _user = _mapper.Map<User>(putUserDTO);
+                var results = _uow.fluentValidationUser.PutValidationRules().Validate(_user);
+                if (!results.IsValid)
+                {
+                    List<ValidationError> _errorObj = new List<ValidationError>();
+                    foreach (var ValidateItem in results.Errors)
+                    {
+                        _errorObj.Add(new ValidationError() { errorCode = ValidateItem.ErrorCode, propertyName = ValidateItem.PropertyName + " (" + ValidateItem.AttemptedValue + ") ", errorMessage = ValidateItem.ErrorMessage });
+                    }
+                    return BadRequest(_errorObj);
+                }
+                User newData = await _uow.fluentValidationUser.PutCompareRulesAsync(id, _user);
+                if (newData != null)
+                {
+                    _uow.userRepository.UpdateAsync(newData);
+                    _uow.Complete();
+                    return Ok(_mapper.Map<List<GetUserDTO>>(_mapper.Map<GetUserDTO>(newData)));
+                }
+                else
+                    return NotFound("No records found.");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
         }
     }
 }

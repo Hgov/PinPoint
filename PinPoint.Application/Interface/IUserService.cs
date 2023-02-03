@@ -9,5 +9,6 @@ namespace PinPoint.Application.Interface
         Task<IActionResult> GetByIdUserAsync(Guid id);
         Task<IActionResult> PostUserAsync(PostUserDTO postUserDTO);
         Task<IActionResult> PostBulkUserAsync(IEnumerable<PostUserDTO> postUserDTO);
+        Task<IActionResult> PutUserAsync(Guid id, PutUserDTO putUserDTO);
     }
 }

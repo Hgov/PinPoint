@@ -9,7 +9,7 @@ namespace PinPoint.API
     public static class Extensions
     {
         public static IServiceCollection ConfigureLoggerService(this IServiceCollection services)
-            => services.AddSingleton<ILoggerManager, LoggerManager>();
+            => services.AddScoped<ILoggerManager, LoggerManager>();
 
         public static void ConfigureMapperService(this IServiceCollection services)
         {

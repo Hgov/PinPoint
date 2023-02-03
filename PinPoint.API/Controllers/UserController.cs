@@ -53,23 +53,13 @@ namespace PinPoint.API.Controllers
             return Json(await _userService.PostBulkUserAsync(postUserDTO));
         }
 
-        //// POST: UserController/Edit/5
-        //[HttpPut("edit/{id}")]
-        ////[ValidateAntiForgeryToken]
-        //public ActionResult Edit(Guid id, User user)
-        //{
-        //    try
-        //    {
-        //        user.user_id = id;
-        //        _uow.userRepository.update(user);
-        //        _uow.Complete();
-        //        return Ok("Success Update");
-        //    }
-        //    catch (AppException ex)
-        //    {
-        //        return BadRequest(new { message = ex.Message });
-        //    }
-        //}
+        // POST: UserController/Edit/5
+        [HttpPut("edit/{id}")]
+        //[ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(Guid id, PutUserDTO putUserDTO)
+        {
+            return Json(await _userService.PutUserAsync(id,putUserDTO));
+        }
         //// POST: UserController/Delete/5
         //[HttpDelete("deleteid/{id}")]
         ////[ValidateAntiForgeryToken]

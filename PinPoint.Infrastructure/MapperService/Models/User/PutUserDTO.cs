@@ -15,6 +15,6 @@ namespace PinPoint.Infrastructure.MapperService.Models.User
         public string? phone { get; set; }
         public string? bio { get; set; }
         public DateTime? birth_date { get; set; }
-        public virtual Gender? gender { get; set; }
+        public Gender? gender { get; set; }
     }
 }

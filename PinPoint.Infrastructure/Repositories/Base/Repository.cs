@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using PinPoint.Core.Repositories.Base;
 using PinPoint.DataAccess.Helpers;
 
@@ -46,10 +47,9 @@ namespace PinPoint.Infrastructure.Repositories.Base
             return Task.CompletedTask;
         }
 
-        public Task UpdateAsync(TEntity entity)
+        public async Task<TEntity> UpdateAsync(TEntity entity)
         {
-            _dbSet.Update(entity);
-            return Task.CompletedTask;
+            return _dbSet.Update(entity).Entity;
         }
         public Task UpdateRangeAsync(IEnumerable<TEntity> entities)
         {
