@@ -15,9 +15,13 @@ namespace PinPoint.API
         {
             services.AddAutoMapper(typeof(UserProfile));
         }
-        public static IApplicationBuilder UseResponseWrapper(this IApplicationBuilder builder)
+        public static IApplicationBuilder UseResponseWrapperMiddleware(this IApplicationBuilder builder)
         {
             return builder.UseMiddleware<ResponseWrapperMiddleware>();
+        }
+        public static IApplicationBuilder UseApiKeyMiddleware(this IApplicationBuilder builder)
+        {
+            return builder.UseMiddleware<ApiKeyMiddleware>();
         }
     }
 
