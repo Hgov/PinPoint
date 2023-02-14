@@ -9,5 +9,10 @@ namespace PinPoint.Application.Interface
         Task<IActionResult> GetByIdUserAsync(Guid id);
         Task<IActionResult> PostUserAsync(PostUserDTO postUserDTO);
         Task<IActionResult> PostBulkUserAsync(IEnumerable<PostUserDTO> postUserDTO);
+<<<<<<< Updated upstream
+=======
+        Task<IActionResult> PutUserAsync(Guid id, PutUserDTO putUserDTO);
+        Task<IActionResult> DeleteByIdUserAsync(Guid id);
+>>>>>>> Stashed changes
     }
 }

@@ -31,28 +31,29 @@ namespace PinPoint.API.Controllers
 
         // GET: UserController/Details/5
         [HttpGet("detail/{id?}")]
-        public async Task<IActionResult> Details(Guid id)
+        public async Task<IActionResult> Details(string id)
         {
-            return Json(await _userService.GetByIdUserAsync(id));
+            return Json(await _userService.GetByIdUserAsync(new Guid(id)));
         }
 
+
+        //// POST: UserController/Create
+        //[HttpPost("create")]
+        ////[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Create(PostUserDTO postUserDTO)
+        //{
+        //    return Json(await _userService.PostUserAsync(postUserDTO));
+        //}
 
         // POST: UserController/Create
         [HttpPost("create")]
         //[ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(PostUserDTO postUserDTO)
-        {
-            return Json(await _userService.PostUserAsync(postUserDTO));
-        }
-
-        // POST: UserController/Create
-        [HttpPost("bulkcreate")]
-        //[ValidateAntiForgeryToken]
-        public async Task<IActionResult> BulkCreate(IEnumerable<PostUserDTO> postUserDTO)
+        public async Task<IActionResult> Create(IEnumerable<PostUserDTO> postUserDTO)
         {
             return Json(await _userService.PostBulkUserAsync(postUserDTO));
         }
 
+<<<<<<< Updated upstream
         //// POST: UserController/Edit/5
         //[HttpPut("edit/{id}")]
         ////[ValidateAntiForgeryToken]
@@ -86,6 +87,22 @@ namespace PinPoint.API.Controllers
         //        return BadRequest(new { message = ex.Message });
         //    }
         //}
+=======
+        // POST: UserController/Edit/5
+        [HttpPut("edit/{id}")]
+        //[ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(string id, PutUserDTO putUserDTO)
+        {
+            return Json(await _userService.PutUserAsync(new Guid(id),putUserDTO));
+        }
+        // POST: UserController/Delete/5
+        [HttpDelete("delete/{id}")]
+        //[ValidateAntiForgeryToken]
+        public async Task<IActionResult> Delete(string id)
+        {
+            return Json(await _userService.DeleteByIdUserAsync(new Guid(id)));
+        }
+>>>>>>> Stashed changes
 
         //[HttpDelete("bulkdelete")]
         //public ActionResult BulkDelete(IEnumerable<User> users)

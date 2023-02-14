@@ -3,6 +3,10 @@ using Newtonsoft.Json;
 using PinPoint.Infrastructure.LoggerService;
 using System.Net;
 using PinPoint.Infrastructure.ResponseWrapper;
+<<<<<<< Updated upstream
+=======
+using Microsoft.AspNetCore.Mvc;
+>>>>>>> Stashed changes
 
 namespace PinPoint.API.Middleware
 {
@@ -27,31 +31,44 @@ namespace PinPoint.API.Middleware
             using (var memoryStream = new MemoryStream())
             {
                 //set the current response to the memorystream.
-                context.Response.Body = memoryStream;
 
-                await _next(context);
-
-                //reset the body 
-                context.Response.Body = currentBody;
-                memoryStream.Seek(0, SeekOrigin.Begin);
-
-                string? readToEnd = new StreamReader(memoryStream).ReadToEnd();
-                JObject readToEndSingle = JObject.Parse(readToEnd);
-                //int? statusCode = (int?)readToEndSingle["statusCode"];
-                object objResult = JsonConvert.DeserializeObject<ResponseWrapperData>(readToEndSingle.ToString());
                 ResponseWrapperManager? result = null;
-                if ((int)(HttpStatusCode)context.Response.StatusCode >= 100 && (int)(HttpStatusCode)context.Response.StatusCode < 400)
+                try
                 {
-                    result = ResponseWrapperManager.Create(context, objResult, null);
-                    loggerManager.LogInfo(JsonConvert.SerializeObject(result));
+                    //context.Response.Body = memoryStream;
+                    //await _next(context);
+
+                    //reset the body 
+                    context.Response.Body = currentBody;
+                    memoryStream.Seek(0, SeekOrigin.Begin);
+
+                    string? readToEnd = new StreamReader(memoryStream).ReadToEnd();
+                    JObject readToEndSingle = JObject.Parse(readToEnd);
+                    //int? statusCode = (int?)readToEndSingle["statusCode"];
+                    object objResult = JsonConvert.DeserializeObject<ResponseWrapperData>(readToEndSingle.ToString());
+
+                    if ((int)(HttpStatusCode)context.Response.StatusCode >= (int)HttpStatusCode.Continue && (int)(HttpStatusCode)context.Response.StatusCode < (int)HttpStatusCode.BadRequest)
+                    {
+                        result = ResponseWrapperManager.Create(context, objResult, null);
+                        loggerManager.LogInfo(JsonConvert.SerializeObject(result));
+                    }
+                    else
+                    {
+                        result = ResponseWrapperManager.Create(context, null, objResult);
+                        loggerManager.LogError(JsonConvert.SerializeObject(result));
+                    }
+                    await context.Response.WriteAsync(JsonConvert.SerializeObject(result));
+                    await _next(context);
                 }
-                else
+                catch (Exception ex)
                 {
-                    result = ResponseWrapperManager.Create(context, null, objResult);
+                    context.Response.StatusCode= (int)HttpStatusCode.InternalServerError;
+                    result = ResponseWrapperManager.Create(context, null, JsonConvert.SerializeObject(ex));
                     loggerManager.LogError(JsonConvert.SerializeObject(result));
+                    await context.Response.WriteAsync(JsonConvert.SerializeObject(result));
+                    await _next(context);
                 }
 
-                await context.Response.WriteAsync(JsonConvert.SerializeObject(result));
             }
         }
     }
