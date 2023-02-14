@@ -35,26 +35,31 @@ namespace PinPoint.Infrastructure.Repositories.Base
         {
             return await _dbSet.FindAsync(id);
         }
-        public async Task<TEntity> RemoveAsync(Guid id)
+        public void Remove(TEntity entity)
         {
-            var _entity = _dbSet.Remove(await GetByIDAsync(id));
-            return _entity.Entity;
+             _dbSet.Remove(entity);
         }
 
-        public Task RemoveRangeAsync(IEnumerable<TEntity> entities)
+        public void RemoveRange(IEnumerable<TEntity> entities)
         {
             _dbSet.RemoveRange(entities);
-            return Task.CompletedTask;
         }
 
+<<<<<<< HEAD
         public async Task<TEntity> UpdateAsync(TEntity entity)
+=======
+<<<<<<< Updated upstream
+        public Task UpdateAsync(TEntity entity)
+=======
+        public TEntity Update(TEntity entity)
+>>>>>>> Stashed changes
+>>>>>>> cec7eb19645063b06087ae3eac9d2594120c7975
         {
             return _dbSet.Update(entity).Entity;
         }
-        public Task UpdateRangeAsync(IEnumerable<TEntity> entities)
+        public void UpdateRange(IEnumerable<TEntity> entities)
         {
             _dbSet.UpdateRange(entities);
-            return Task.CompletedTask;
         }
 
 

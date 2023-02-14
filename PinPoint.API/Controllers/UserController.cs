@@ -31,28 +31,29 @@ namespace PinPoint.API.Controllers
 
         // GET: UserController/Details/5
         [HttpGet("detail/{id?}")]
-        public async Task<IActionResult> Details(Guid id)
+        public async Task<IActionResult> Details(string id)
         {
-            return Json(await _userService.GetByIdUserAsync(id));
+            return Json(await _userService.GetByIdUserAsync(new Guid(id)));
         }
 
+
+        //// POST: UserController/Create
+        //[HttpPost("create")]
+        ////[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Create(PostUserDTO postUserDTO)
+        //{
+        //    return Json(await _userService.PostUserAsync(postUserDTO));
+        //}
 
         // POST: UserController/Create
         [HttpPost("create")]
         //[ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(PostUserDTO postUserDTO)
-        {
-            return Json(await _userService.PostUserAsync(postUserDTO));
-        }
-
-        // POST: UserController/Create
-        [HttpPost("bulkcreate")]
-        //[ValidateAntiForgeryToken]
-        public async Task<IActionResult> BulkCreate(IEnumerable<PostUserDTO> postUserDTO)
+        public async Task<IActionResult> Create(IEnumerable<PostUserDTO> postUserDTO)
         {
             return Json(await _userService.PostBulkUserAsync(postUserDTO));
         }
 
+<<<<<<< HEAD
         // POST: UserController/Edit/5
         [HttpPut("edit/{id}")]
         //[ValidateAntiForgeryToken]
@@ -60,6 +61,26 @@ namespace PinPoint.API.Controllers
         {
             return Json(await _userService.PutUserAsync(id,putUserDTO));
         }
+=======
+<<<<<<< Updated upstream
+        //// POST: UserController/Edit/5
+        //[HttpPut("edit/{id}")]
+        ////[ValidateAntiForgeryToken]
+        //public ActionResult Edit(Guid id, User user)
+        //{
+        //    try
+        //    {
+        //        user.user_id = id;
+        //        _uow.userRepository.update(user);
+        //        _uow.Complete();
+        //        return Ok("Success Update");
+        //    }
+        //    catch (AppException ex)
+        //    {
+        //        return BadRequest(new { message = ex.Message });
+        //    }
+        //}
+>>>>>>> cec7eb19645063b06087ae3eac9d2594120c7975
         //// POST: UserController/Delete/5
         //[HttpDelete("deleteid/{id}")]
         ////[ValidateAntiForgeryToken]
@@ -76,6 +97,22 @@ namespace PinPoint.API.Controllers
         //        return BadRequest(new { message = ex.Message });
         //    }
         //}
+=======
+        // POST: UserController/Edit/5
+        [HttpPut("edit/{id}")]
+        //[ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(string id, PutUserDTO putUserDTO)
+        {
+            return Json(await _userService.PutUserAsync(new Guid(id),putUserDTO));
+        }
+        // POST: UserController/Delete/5
+        [HttpDelete("delete/{id}")]
+        //[ValidateAntiForgeryToken]
+        public async Task<IActionResult> Delete(string id)
+        {
+            return Json(await _userService.DeleteByIdUserAsync(new Guid(id)));
+        }
+>>>>>>> Stashed changes
 
         //[HttpDelete("bulkdelete")]
         //public ActionResult BulkDelete(IEnumerable<User> users)
