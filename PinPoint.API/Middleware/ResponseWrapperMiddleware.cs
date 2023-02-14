@@ -3,14 +3,6 @@ using Newtonsoft.Json;
 using PinPoint.Infrastructure.LoggerService;
 using System.Net;
 using PinPoint.Infrastructure.ResponseWrapper;
-<<<<<<< HEAD
-using System.Runtime.Serialization;
-=======
-<<<<<<< Updated upstream
-=======
-using Microsoft.AspNetCore.Mvc;
->>>>>>> Stashed changes
->>>>>>> cec7eb19645063b06087ae3eac9d2594120c7975
 
 namespace PinPoint.API.Middleware
 {
@@ -43,8 +35,8 @@ namespace PinPoint.API.Middleware
                 ResponseWrapperManager? result = null;
                 try
                 {
-                    //context.Response.Body = memoryStream;
-                    //await _next(context);
+                    context.Response.Body = memoryStream;
+                    await _next(context);
 
                     //reset the body 
                     context.Response.Body = currentBody;
@@ -66,7 +58,6 @@ namespace PinPoint.API.Middleware
                         loggerManager.LogError(JsonConvert.SerializeObject(result));
                     }
                     await context.Response.WriteAsync(JsonConvert.SerializeObject(result));
-                    await _next(context);
                 }
                 catch (Exception ex)
                 {
@@ -74,7 +65,6 @@ namespace PinPoint.API.Middleware
                     result = ResponseWrapperManager.Create(context, null, JsonConvert.SerializeObject(ex));
                     loggerManager.LogError(JsonConvert.SerializeObject(result));
                     await context.Response.WriteAsync(JsonConvert.SerializeObject(result));
-                    await _next(context);
                 }
 
             }

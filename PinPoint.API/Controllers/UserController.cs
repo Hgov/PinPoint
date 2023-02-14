@@ -52,52 +52,6 @@ namespace PinPoint.API.Controllers
         {
             return Json(await _userService.PostBulkUserAsync(postUserDTO));
         }
-
-<<<<<<< HEAD
-        // POST: UserController/Edit/5
-        [HttpPut("edit/{id}")]
-        //[ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, PutUserDTO putUserDTO)
-        {
-            return Json(await _userService.PutUserAsync(id,putUserDTO));
-        }
-=======
-<<<<<<< Updated upstream
-        //// POST: UserController/Edit/5
-        //[HttpPut("edit/{id}")]
-        ////[ValidateAntiForgeryToken]
-        //public ActionResult Edit(Guid id, User user)
-        //{
-        //    try
-        //    {
-        //        user.user_id = id;
-        //        _uow.userRepository.update(user);
-        //        _uow.Complete();
-        //        return Ok("Success Update");
-        //    }
-        //    catch (AppException ex)
-        //    {
-        //        return BadRequest(new { message = ex.Message });
-        //    }
-        //}
->>>>>>> cec7eb19645063b06087ae3eac9d2594120c7975
-        //// POST: UserController/Delete/5
-        //[HttpDelete("deleteid/{id}")]
-        ////[ValidateAntiForgeryToken]
-        //public ActionResult Delete(Guid id)
-        //{
-        //    try
-        //    {
-        //        _uow.userRepository.RemoveAsync(id);
-        //        _uow.Complete();
-        //        return Ok("Success Deleted");
-        //    }
-        //    catch (AppException ex)
-        //    {
-        //        return BadRequest(new { message = ex.Message });
-        //    }
-        //}
-=======
         // POST: UserController/Edit/5
         [HttpPut("edit/{id}")]
         //[ValidateAntiForgeryToken]
@@ -112,8 +66,6 @@ namespace PinPoint.API.Controllers
         {
             return Json(await _userService.DeleteByIdUserAsync(new Guid(id)));
         }
->>>>>>> Stashed changes
-
         //[HttpDelete("bulkdelete")]
         //public ActionResult BulkDelete(IEnumerable<User> users)
         //{

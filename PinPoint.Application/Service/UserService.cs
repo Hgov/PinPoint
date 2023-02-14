@@ -61,32 +61,6 @@ namespace PinPoint.Application.Service
         }
         public async Task<IActionResult> PostUserAsync(PostUserDTO postUserDTO)
         {
-<<<<<<< Updated upstream
-            var _user = _mapper.Map<User>(postUserDTO);
-            var results = _uow.fluentValidationUser.PostValidationRules().Validate(_user);
-            if (!results.IsValid)
-            {
-                List<ValidationError> _errorObj = new List<ValidationError>();
-                foreach (var ValidateItem in results.Errors)
-                {
-                    _errorObj.Add(new ValidationError() { errorCode = ValidateItem.ErrorCode, propertyName = ValidateItem.PropertyName + " (" + ValidateItem.AttemptedValue + ") ", errorMessage = ValidateItem.ErrorMessage });
-                }
-                return BadRequest(_errorObj);
-            }
-            _user = await _uow.userRepository.AddAsync(_user);
-            _uow.Complete();
-            return Ok(_mapper.Map<List<GetUserDTO>>(_mapper.Map<GetUserDTO>(_user)));
-        }
-        public async Task<IActionResult> PostBulkUserAsync(IEnumerable<PostUserDTO> postUserDTO)
-        {
-            List<ValidationError> _errorObj = new List<ValidationError>();
-            foreach (var postUserDTOItem in postUserDTO)
-            {
-                var _user = _mapper.Map<User>(postUserDTOItem);
-                var results = _uow.fluentValidationUser.PostValidationRules().Validate(_user);
-                if (!results.IsValid)
-                {
-=======
             try
             {
                 var _user = _mapper.Map<User>(postUserDTO);
@@ -94,28 +68,12 @@ namespace PinPoint.Application.Service
                 if (!results.IsValid)
                 {
                     List<ValidationError> _errorObj = new List<ValidationError>();
->>>>>>> Stashed changes
                     foreach (var ValidateItem in results.Errors)
                     {
                         _errorObj.Add(new ValidationError() { errorCode = ValidateItem.ErrorCode, propertyName = ValidateItem.PropertyName + " (" + ValidateItem.AttemptedValue + ") ", errorMessage = ValidateItem.ErrorMessage });
                     }
                     return BadRequest(_errorObj);
                 }
-<<<<<<< Updated upstream
-            } 
-            var bulkPostTogetUserDTO = new List<GetUserDTO>();
-            foreach (var postUserDTOItem in postUserDTO)
-            {
-                var _user = await _uow.userRepository.AddAsync(_mapper.Map<User>(postUserDTOItem));
-                _uow.Complete();
-                bulkPostTogetUserDTO.Add(_mapper.Map<GetUserDTO>(_user));
-            }
-            return Ok(bulkPostTogetUserDTO);
-        }
-<<<<<<< HEAD
-
-=======
-=======
                 _user = await _uow.userRepository.AddAsync(_user);
                 _uow.Complete();
                 return Ok(_mapper.Map<List<GetUserDTO>>(_mapper.Map<GetUserDTO>(_user)));
@@ -159,28 +117,12 @@ namespace PinPoint.Application.Service
             }
 
         }
->>>>>>> cec7eb19645063b06087ae3eac9d2594120c7975
+
         public async Task<IActionResult> PutUserAsync(Guid id, PutUserDTO putUserDTO)
         {
             try
             {
                 var _user = _mapper.Map<User>(putUserDTO);
-<<<<<<< HEAD
-                var results = _uow.fluentValidationUser.PutValidationRules().Validate(_user);
-                if (!results.IsValid)
-                {
-                    List<ValidationError> _errorObj = new List<ValidationError>();
-                    foreach (var ValidateItem in results.Errors)
-                    {
-                        _errorObj.Add(new ValidationError() { errorCode = ValidateItem.ErrorCode, propertyName = ValidateItem.PropertyName + " (" + ValidateItem.AttemptedValue + ") ", errorMessage = ValidateItem.ErrorMessage });
-                    }
-                    return BadRequest(_errorObj);
-                }
-                User newData = await _uow.fluentValidationUser.PutCompareRulesAsync(id, _user);
-                if (newData != null)
-                {
-                    _uow.userRepository.UpdateAsync(newData);
-=======
                 User newData = await _uow.fluentValidationUser.PutCompareRulesAsync(id, _user);
                 if (newData != null)
                 {
@@ -196,7 +138,6 @@ namespace PinPoint.Application.Service
                     }
 
                     var dd = _uow.userRepository.Update(newData);
->>>>>>> cec7eb19645063b06087ae3eac9d2594120c7975
                     _uow.Complete();
                     return Ok(_mapper.Map<List<GetUserDTO>>(_mapper.Map<GetUserDTO>(newData)));
                 }
@@ -209,8 +150,6 @@ namespace PinPoint.Application.Service
             }
 
         }
-<<<<<<< HEAD
-=======
         public async Task<IActionResult> DeleteByIdUserAsync(Guid id)
         {
             try
@@ -229,8 +168,5 @@ namespace PinPoint.Application.Service
             }
 
         }
-
->>>>>>> Stashed changes
->>>>>>> cec7eb19645063b06087ae3eac9d2594120c7975
     }
 }
