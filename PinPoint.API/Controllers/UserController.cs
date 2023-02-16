@@ -20,7 +20,7 @@ namespace PinPoint.API.Controllers
         public UserController(DataContext dataContext, IMapper mapper)
         {
             _dataContext = dataContext;
-            _userService = new UserService(_dataContext,mapper);
+            _userService = new UserService(_dataContext, mapper);
         }
         // GET: UserController
         [HttpGet("list")]
@@ -30,12 +30,11 @@ namespace PinPoint.API.Controllers
         }
 
         // GET: UserController/Details/5
-        [HttpGet("detail/{id?}")]
+        [HttpGet("detail")]
         public async Task<IActionResult> Details(string id)
         {
             return Json(await _userService.GetByIdUserAsync(new Guid(id)));
         }
-
 
         //// POST: UserController/Create
         //[HttpPost("create")]
@@ -57,28 +56,14 @@ namespace PinPoint.API.Controllers
         //[ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(string id, PutUserDTO putUserDTO)
         {
-            return Json(await _userService.PutUserAsync(new Guid(id),putUserDTO));
+            return Json(await _userService.PutUserAsync(new Guid(id), putUserDTO));
         }
         // POST: UserController/Delete/5
-        [HttpDelete("delete/{id}")]
+        [HttpDelete("delete")]
         //[ValidateAntiForgeryToken]
-        public async Task<IActionResult> Delete(string id)
+        public async Task<IActionResult> Delete(IEnumerable<DeleteUserDTO> deleteUserDTO)
         {
-            return Json(await _userService.DeleteByIdUserAsync(new Guid(id)));
+            return Json(await _userService.DeleteBulkUserAsync(deleteUserDTO));
         }
-        //[HttpDelete("bulkdelete")]
-        //public ActionResult BulkDelete(IEnumerable<User> users)
-        //{
-        //    try
-        //    {
-        //        _uow.userRepository.RemoveRangeAsync(users);
-        //        _uow.Complete();
-        //        return Ok("Success Deleted");
-        //    }
-        //    catch (AppException ex)
-        //    {
-        //        return BadRequest(new {message=ex.Message});
-        //    }
-        //}
     }
 }
