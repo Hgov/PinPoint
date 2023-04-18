@@ -47,8 +47,7 @@ namespace PinPoint.Application.Service
                 var _user = await _uow.userRepository.GetByIDAsync(id);
                 if (_user == null)
                 {
-                    pinpointResponse.Add(new PinPointResponse() { Code = HttpStatusCode.NotFound.ToString(), PropertyName = "user_id", AttemptedValue = id.ToString(), Message = "No records found." });
-                    return NotFound(pinpointResponse);
+                    return NotFound(new PinPointResponse() { Code = HttpStatusCode.NotFound.ToString(), PropertyName = "user_id", AttemptedValue = id.ToString(), Message = "No records found." });
                 }
                 return Ok(_mapper.Map<List<GetUserDTO>>(_mapper.Map<GetUserDTO>(_user)));
             }
@@ -69,7 +68,7 @@ namespace PinPoint.Application.Service
                     List<PinPointResponse> pinpointResponse = new List<PinPointResponse>();
                     foreach (var ValidateItem in results.Errors)
                     {
-                        pinpointResponse.Add(new PinPointResponse() { Code = ValidateItem.ErrorCode, PropertyName = ValidateItem.PropertyName, AttemptedValue = ValidateItem.AttemptedValue.ToString(), Message = ValidateItem.ErrorMessage });
+                        pinpointResponse.Add(new PinPointResponse() { Code = ValidateItem.ErrorCode, PropertyName = ValidateItem.PropertyName, AttemptedValue = ValidateItem.AttemptedValue?.ToString() ?? "", Message = ValidateItem.ErrorMessage });
                     }
                     return BadRequest(pinpointResponse);
                 }
@@ -104,14 +103,14 @@ namespace PinPoint.Application.Service
                         {
                             var isExisting = pinpointResponse.Any(x => x.AttemptedValue == ValidateItem.AttemptedValue.ToString() && x.Code == ValidateItem.ErrorCode);
                             if (isExisting) continue;
-                            pinpointResponse.Add(new PinPointResponse() { Code = ValidateItem.ErrorCode, PropertyName = ValidateItem.PropertyName, AttemptedValue = ValidateItem.AttemptedValue.ToString(), Message = ValidateItem.ErrorMessage });
+                            pinpointResponse.Add(new PinPointResponse() { Code = ValidateItem.ErrorCode, PropertyName = ValidateItem.PropertyName, AttemptedValue = ValidateItem.AttemptedValue?.ToString() ?? "", Message = ValidateItem.ErrorMessage });
                         }
                     }
                     else
                     {
                         _user = await _uow.userRepository.AddAsync(_mapper.Map<User>(postUserDTOItem));
                         _uow.Complete();
-                        pinpointResponse.Add(new PinPointResponse() { Code = HttpStatusCode.OK.ToString(), PropertyName = _user.user_id.ToString(), AttemptedValue = null, Message = "Successful" });
+                        pinpointResponse.Add(new PinPointResponse() { Code = HttpStatusCode.OK.ToString(), PropertyName = "user_id", AttemptedValue = _user.user_id.ToString(), Message = "Successful" });
                     }
                 }
                 return Ok(pinpointResponse);
@@ -137,7 +136,7 @@ namespace PinPoint.Application.Service
                         List<PinPointResponse> pinpointResponse = new List<PinPointResponse>();
                         foreach (var ValidateItem in results.Errors)
                         {
-                            pinpointResponse.Add(new PinPointResponse() { Code = ValidateItem.ErrorCode, PropertyName = ValidateItem.PropertyName, AttemptedValue = ValidateItem.AttemptedValue.ToString(), Message = ValidateItem.ErrorMessage });
+                            pinpointResponse.Add(new PinPointResponse() { Code = ValidateItem.ErrorCode, PropertyName = ValidateItem.PropertyName, AttemptedValue = ValidateItem.AttemptedValue?.ToString() ?? "", Message = ValidateItem.ErrorMessage });
                         }
                         return BadRequest(pinpointResponse);
                     }
@@ -149,7 +148,7 @@ namespace PinPoint.Application.Service
                     }
                 }
                 else
-                    return NotFound(new PinPointResponse() { Code = HttpStatusCode.NotFound.ToString(), PropertyName = _user.user_id.ToString(), AttemptedValue = null, Message = "Successful" });
+                    return NotFound(new PinPointResponse() { Code = HttpStatusCode.NotFound.ToString(), PropertyName = _user.user_id.ToString(), AttemptedValue = null, Message = "No records found." });
             }
             catch (Exception ex)
             {
@@ -165,14 +164,16 @@ namespace PinPoint.Application.Service
                 List<PinPointResponse> pinpointResponse = new List<PinPointResponse>();
                 var _user = await _uow.userRepository.GetByIDAsync(id);
                 if (_user == null)
-                    pinpointResponse.Add(new PinPointResponse() { Code = HttpStatusCode.NotFound.ToString(), PropertyName = "user_id", AttemptedValue = id.ToString(), Message = "No records found." });
+                {
+                    return NotFound(new PinPointResponse() { Code = HttpStatusCode.NotFound.ToString(), PropertyName = "user_id", AttemptedValue = id.ToString(), Message = "No records found." });
+                }
                 else
                 {
                     _uow.userRepository.Remove(_user);
                     _uow.Complete();
-                    pinpointResponse.Add(new PinPointResponse() { Code = HttpStatusCode.OK.ToString(), PropertyName = _user.user_id.ToString(), AttemptedValue = id.ToString(), Message = "Successful" });
+                    return Ok(new PinPointResponse() { Code = HttpStatusCode.OK.ToString(), PropertyName = "user_id", AttemptedValue = id.ToString(), Message = "Successful" });
                 }
-                return Ok(pinpointResponse);
+
             }
             catch (Exception ex)
             {
@@ -194,7 +195,7 @@ namespace PinPoint.Application.Service
                     {
                         _uow.userRepository.Remove(_user);
                         _uow.Complete();
-                        pinpointResponse.Add(new PinPointResponse() { Code = HttpStatusCode.OK.ToString(), PropertyName = _user.user_id.ToString(), AttemptedValue = deleteUserDTOItem.user_id.ToString(), Message = "Successful" });
+                        pinpointResponse.Add(new PinPointResponse() { Code = HttpStatusCode.OK.ToString(), PropertyName = "user_id", AttemptedValue = deleteUserDTOItem.user_id.ToString(), Message = "Successful" });
                     }
                 }
                 return Ok(pinpointResponse);

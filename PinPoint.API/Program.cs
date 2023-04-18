@@ -46,28 +46,6 @@ builder.Services.AddSwaggerGen(options =>
         //    Url = new Uri("https://example.com/license")
         //}
     });
-    //options.AddSecurityDefinition("ApiKey",new OpenApiSecurityScheme
-    //{
-    //    Description = "ApiKey must appear in header",
-    //    Type = SecuritySchemeType.ApiKey,
-    //    Name = "XApiKey",
-    //    In = ParameterLocation.Header,
-    //    Scheme = "ApiKeyScheme"
-    //});
-    //var key = new OpenApiSecurityScheme()
-    //{
-    //    Reference = new OpenApiReference
-    //    {
-    //        Type = ReferenceType.SecurityScheme,
-    //        Id = "ApiKey"
-    //    },
-    //    In = ParameterLocation.Header
-    //};
-    //var requirement = new OpenApiSecurityRequirement
-    //                {
-    //                         { key, new List<string>() }
-    //                };
-    //options.AddSecurityRequirement(requirement);
 });
 
 var app = builder.Build();
@@ -87,7 +65,6 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseAuthorization();
-//app.UseApiKeyMiddleware();
 app.MapControllers();
 app.UseResponseWrapperMiddleware();
 

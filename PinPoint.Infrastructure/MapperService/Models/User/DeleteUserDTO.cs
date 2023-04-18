@@ -2,7 +2,7 @@
 
 namespace PinPoint.Infrastructure.MapperService.Models.User
 {
-    public class DeleteUserDTO : AdditionalDomain
+    public class DeleteUserDTO
     {
         public Guid user_id { get; set; }
     }

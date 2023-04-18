@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using Azure.Core;
+using FluentValidation;
 using PinPoint.Core.FluentValidation;
 using PinPoint.Core.Repositories;
 using PinPoint.Data.Domain;
@@ -41,16 +42,14 @@ namespace PinPoint.Infrastructure.FluentValidation.AbstractValidators
                 .NotEmpty().WithMessage("{PropertyName} is required.").When(i => !string.IsNullOrEmpty(i.last_name));
 
             RuleFor(c => c.email)
-                .EmailAddress().WithMessage("{PropertyName} not valid").When(i => !string.IsNullOrEmpty(i.email))
-                .Must(IsEmailExist).WithMessage("{PropertyName} Is Already Exist.").When(i => !string.IsNullOrEmpty(i.email));
+                .EmailAddress().WithMessage("{PropertyName} not valid").When(i => !string.IsNullOrEmpty(i.email));
 
             RuleFor(p => p.phone)
                 .MinimumLength(10).WithMessage("{PropertyName} must not be less than 10 characters.").When(i => !string.IsNullOrEmpty(i.phone))
                 .MaximumLength(20).WithMessage("{PropertyName} must not exceed 50 characters.").When(i => !string.IsNullOrEmpty(i.phone))
                 .Matches(new Regex(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$")).WithMessage("{PropertyName} not valid").When(i => !string.IsNullOrEmpty(i.phone));
 
-            RuleFor(c => c.gender)
-                .Must(GenderBeAValidParameter).WithMessage("{PropertyName} not valid");
+            RuleFor(c => c.gender).Must(GenderBeAValidParameter).When(i => i.gender != null).WithMessage("{PropertyName} not valid");
 
             RuleFor(c => c.birth_date)
                 .Must(BeAValidDate).WithMessage("{PropertyName} not valid").When(i => !string.IsNullOrEmpty(i.birth_date.ToString()));
@@ -73,7 +72,7 @@ namespace PinPoint.Infrastructure.FluentValidation.AbstractValidators
                 _data.phone = (!string.IsNullOrWhiteSpace(newUserData.phone) && _data.phone != newUserData.phone) ? newUserData.phone : _data.phone;
                 _data.birth_date = (newUserData.birth_date != null && _data.birth_date != newUserData.birth_date) ? newUserData.birth_date : _data.birth_date;
                 _data.bio = (!string.IsNullOrWhiteSpace(newUserData.bio) && _data.bio != newUserData.bio) ? newUserData.bio : _data.bio;
-                _data.gender = (_data.gender != newUserData.gender) ? newUserData.gender : _data.gender;
+                _data.gender = (_data.gender != newUserData.gender && newUserData.gender != null) ? newUserData.gender : _data.gender;
                 _data.last_updated_tsz = (newUserData.last_updated_tsz != null && _data.last_updated_tsz != newUserData.last_updated_tsz) ? newUserData.last_updated_tsz : _data.last_updated_tsz;
                 _data.status_active = (_data.status_active != newUserData.status_active) ? newUserData.status_active : _data.status_active;
                 _data.status_visibility = (_data.status_visibility != newUserData.status_visibility) ? newUserData.status_visibility : _data.status_visibility;
@@ -87,6 +86,7 @@ namespace PinPoint.Infrastructure.FluentValidation.AbstractValidators
         {
             return arg.Equals(Gender.Male) || arg.Equals(Gender.Null) || arg.Equals(Gender.Female);
         }
+
 
         public bool BeAValidDate(DateTime? date)
         {
