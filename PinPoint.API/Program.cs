@@ -2,8 +2,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using NLog;
 using PinPoint.API;
-using PinPoint.API.Middleware;
+using PinPoint.Core.LoggerManager;
 using PinPoint.DataAccess.Helpers;
+using PinPoint.Infrastructure.LoggerService;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,11 +20,10 @@ builder.Services.AddAntiforgery(options => options.HeaderName = "__RequestVerifi
 builder.Services.ConfigureMapperService();
 
 // NLog: Setup NLog for Dependency injection
-//builder.Logging.ClearProviders();
-//builder.Logging.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Trace);
-//builder.Host.UseNLog();
 LogManager.LoadConfiguration(string.Concat(Directory.GetCurrentDirectory(), "/Configuration/nlog.config"));
-builder.Services.ConfigureLoggerService();
+builder.Services.AddScoped<ILoggerManager, LoggerManager>();
+
+builder.Services.ConfigureService();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -37,8 +37,8 @@ builder.Services.AddSwaggerGen(options =>
         TermsOfService = new Uri("https://localhost:7098/api"),
         Contact = new OpenApiContact
         {
-            Name = "Example User",
-            Url = new Uri("https://localhost:7098/api/user")
+            Name = "Hayrettin GÖV",
+            Url = new Uri("https://github.com/Hgov")
         },
         //License = new OpenApiLicense
         //{

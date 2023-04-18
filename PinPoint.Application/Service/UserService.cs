@@ -4,9 +4,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using PinPoint.Application.Interface;
 using PinPoint.Core.Data;
+using PinPoint.Core.LoggerManager;
 using PinPoint.Core.UnitOfWork.Base;
 using PinPoint.Data.Domain;
 using PinPoint.DataAccess.Helpers;
+using PinPoint.Infrastructure.BaseClass;
 using PinPoint.Infrastructure.MapperService.Models.User;
 using PinPoint.Infrastructure.UnitOfWork.Base;
 using System.Linq;
@@ -14,17 +16,9 @@ using System.Net;
 
 namespace PinPoint.Application.Service
 {
-    public class UserService : ControllerBase, IUserService<User>
+    public class UserService : BaseService, IUserService<User>
     {
-        public DataContext _dataContext;
-        private readonly IUnitOfWork _uow;
-        private readonly IMapper _mapper;
-        public UserService(DataContext dataContext, IMapper mapper)
-        {
-            _dataContext = dataContext;
-            _uow = new UnitOfWork(_dataContext);
-            _mapper = mapper;
-        }
+        public UserService(DataContext dataContext, IMapper mapper, ILoggerManager loggerManager) : base(dataContext, mapper, loggerManager) { }
         public async Task<IActionResult> GetUserListAsync()
         {
             try
@@ -163,6 +157,29 @@ namespace PinPoint.Application.Service
             }
 
         }
+
+        public async Task<IActionResult> DeleteUserAsync(Guid id)
+        {
+            try
+            {
+                List<PinPointResponse> pinpointResponse = new List<PinPointResponse>();
+                var _user = await _uow.userRepository.GetByIDAsync(id);
+                if (_user == null)
+                    pinpointResponse.Add(new PinPointResponse() { Code = HttpStatusCode.NotFound.ToString(), PropertyName = "user_id", AttemptedValue = id.ToString(), Message = "No records found." });
+                else
+                {
+                    _uow.userRepository.Remove(_user);
+                    _uow.Complete();
+                    pinpointResponse.Add(new PinPointResponse() { Code = HttpStatusCode.OK.ToString(), PropertyName = _user.user_id.ToString(), AttemptedValue = id.ToString(), Message = "Successful" });
+                }
+                return Ok(pinpointResponse);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+        }
         public async Task<IActionResult> DeleteBulkUserAsync(IEnumerable<DeleteUserDTO> deleteUserDTOs)
         {
             try
@@ -177,7 +194,7 @@ namespace PinPoint.Application.Service
                     {
                         _uow.userRepository.Remove(_user);
                         _uow.Complete();
-                        pinpointResponse.Add(new PinPointResponse() { Code = HttpStatusCode.OK.ToString(), PropertyName = _user.user_id.ToString(), AttemptedValue = null, Message = "Successful" });
+                        pinpointResponse.Add(new PinPointResponse() { Code = HttpStatusCode.OK.ToString(), PropertyName = _user.user_id.ToString(), AttemptedValue = deleteUserDTOItem.user_id.ToString(), Message = "Successful" });
                     }
                 }
                 return Ok(pinpointResponse);

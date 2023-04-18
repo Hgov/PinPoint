@@ -1,6 +1,9 @@
 ﻿
 using PinPoint.API.Middleware;
+using PinPoint.Application.Interface;
+using PinPoint.Application.Service;
 using PinPoint.Core.LoggerManager;
+using PinPoint.Data.Domain;
 using PinPoint.Infrastructure.LoggerService;
 using PinPoint.Infrastructure.MapperService.Profiles;
 
@@ -8,8 +11,11 @@ namespace PinPoint.API
 {
     public static class Extensions
     {
-        public static IServiceCollection ConfigureLoggerService(this IServiceCollection services)
-            => services.AddScoped<ILoggerManager, LoggerManager>();
+        public static void ConfigureService(this IServiceCollection services)
+        {
+            services.AddScoped<ILoggerManager, LoggerManager>();
+            services.AddScoped<IUserService<User>, UserService>();
+        }
 
         public static void ConfigureMapperService(this IServiceCollection services)
         {

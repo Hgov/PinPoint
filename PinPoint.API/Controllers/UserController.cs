@@ -6,6 +6,7 @@ using PinPoint.Application.Service;
 using PinPoint.Core.LoggerManager;
 using PinPoint.Data.Domain;
 using PinPoint.DataAccess.Helpers;
+using PinPoint.Infrastructure.BaseClass;
 using PinPoint.Infrastructure.MapperService.Models.User;
 
 namespace PinPoint.API.Controllers
@@ -13,14 +14,12 @@ namespace PinPoint.API.Controllers
     [Route("api/[controller]")]
     [ApiController]
     [Produces("application/json")]
-    public class UserController : Controller
+    public class UserController : BaseController<User>
     {
-        private IUserService<User> _userService;
-        private readonly DataContext _dataContext;
-        public UserController(DataContext dataContext, IMapper mapper)
+        protected readonly IUserService<User> _userService;
+        public UserController(DataContext dataContext, IMapper mapper,ILoggerManager loggerManager,IUserService<User> userService):base(dataContext, mapper, loggerManager)
         {
-            _dataContext = dataContext;
-            _userService = new UserService(_dataContext, mapper);
+            _userService = userService;
         }
         // GET: UserController
         [HttpGet("list")]
@@ -36,30 +35,40 @@ namespace PinPoint.API.Controllers
             return Json(await _userService.GetByIdUserAsync(new Guid(id)));
         }
 
-        //// POST: UserController/Create
-        //[HttpPost("create")]
-        ////[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Create(PostUserDTO postUserDTO)
-        //{
-        //    return Json(await _userService.PostUserAsync(postUserDTO));
-        //}
-
         // POST: UserController/Create
         [HttpPost("create")]
+        //[ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(PostUserDTO postUserDTO)
+        {
+            return Json(await _userService.PostUserAsync(postUserDTO));
+        }
+
+        // POST: UserController/multiple/create
+        [HttpPost("bulk/create")]
         //[ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(IEnumerable<PostUserDTO> postUserDTO)
         {
             return Json(await _userService.PostBulkUserAsync(postUserDTO));
         }
-        // POST: UserController/Edit/5
+
+        // PUT: UserController/Edit/5
         [HttpPut("edit/{id}")]
         //[ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(string id, PutUserDTO putUserDTO)
         {
             return Json(await _userService.PutUserAsync(new Guid(id), putUserDTO));
         }
-        // POST: UserController/Delete/5
+
+        // DELETE: UserController/bulk/Delete
         [HttpDelete("delete")]
+        //[ValidateAntiForgeryToken]
+        public async Task<IActionResult> Delete(string id)
+        {
+            return Json(await _userService.DeleteUserAsync(new Guid(id)));
+        }
+
+        // DELETE: UserController/bulk/Delete
+        [HttpDelete("bulk/delete")]
         //[ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(IEnumerable<DeleteUserDTO> deleteUserDTO)
         {

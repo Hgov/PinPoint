@@ -10,6 +10,7 @@ namespace PinPoint.Application.Interface
         Task<IActionResult> PostUserAsync(PostUserDTO postUserDTO);
         Task<IActionResult> PostBulkUserAsync(IEnumerable<PostUserDTO> postUserDTO);
         Task<IActionResult> PutUserAsync(Guid id, PutUserDTO putUserDTO);
+        Task<IActionResult> DeleteUserAsync(Guid id);
         Task<IActionResult> DeleteBulkUserAsync(IEnumerable<DeleteUserDTO> deleteUserDTO);
     }
 }

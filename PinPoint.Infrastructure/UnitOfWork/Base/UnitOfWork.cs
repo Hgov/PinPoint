@@ -19,7 +19,7 @@ namespace PinPoint.Infrastructure.UnitOfWork.Base
         public UnitOfWork(DataContext DataContext)
         {
             loggerManager = new LoggerManager();
-            _DataContext = DataContext;
+            _DataContext =DataContext;
             userRepository = new UserRepository(_DataContext);
             fluentValidationUser = new FluentValidation.AbstractValidators.UserValidator(userRepository);
 
