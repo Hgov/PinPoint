@@ -8,22 +8,22 @@ using static PinPoint.Data.Enums.Enums;
 
 namespace PinPoint.Infrastructure.FluentValidation.AbstractValidators
 {
-    public class UserValidator : AbstractValidator<User>, IFluentValidation<User>
+    public class ContactValidator : AbstractValidator<Contact>, IFluentValidation<Contact>
     {
-        private readonly IUserRepository _userRepository;
-        public UserValidator(IUserRepository userRepository)
+        private readonly IContactRepository _contactRepository;
+        public ContactValidator(IContactRepository contactRepository)
         {
-            _userRepository = userRepository;
+            _contactRepository = contactRepository;
         }
-        public AbstractValidator<User> GetValidationRules()
-        {
-            return this;
-        }
-        public AbstractValidator<User> GetValidationByIdRules()
+        public AbstractValidator<Contact> GetValidationRules()
         {
             return this;
         }
-        public AbstractValidator<User> PostValidationRules()
+        public AbstractValidator<Contact> GetValidationByIdRules()
+        {
+            return this;
+        }
+        public AbstractValidator<Contact> PostValidationRules()
         {
             RuleFor(c => c.first_name).NotEmpty().WithMessage("{PropertyName} is required.");
             RuleFor(c => c.last_name).NotEmpty().WithMessage("{PropertyName} is required.");
@@ -33,7 +33,7 @@ namespace PinPoint.Infrastructure.FluentValidation.AbstractValidators
             RuleFor(c => c.birth_date).Must(BeAValidDate).WithMessage("{PropertyName} not valid");
             return this;
         }
-        public AbstractValidator<User> PutValidationRules()
+        public AbstractValidator<Contact> PutValidationRules()
         {
             RuleFor(c => c.first_name)
                 .NotEmpty().WithMessage("{PropertyName} is required.").When(i => !string.IsNullOrEmpty(i.first_name));
@@ -58,24 +58,24 @@ namespace PinPoint.Infrastructure.FluentValidation.AbstractValidators
             return this;
         }
 
-        public async Task<User> PutCompareRulesAsync(Guid id, User newUserData)
+        public async Task<Contact> PutCompareRulesAsync(Guid id, Contact newData)
         {
-            User _data = await _userRepository.GetByIDAsync(id);
+            Contact _data = await _contactRepository.GetByIDAsync(id);
             if (_data == null)
                 return null;
             else
             {
-                _data.user_id = id;
-                _data.first_name = (!string.IsNullOrWhiteSpace(newUserData.first_name) && _data.first_name != newUserData.first_name) ? newUserData.first_name : _data.first_name;
-                _data.last_name = (!string.IsNullOrWhiteSpace(newUserData.last_name) && _data.last_name != newUserData.last_name) ? newUserData.last_name : _data.last_name;
-                _data.email = (!string.IsNullOrWhiteSpace(newUserData.email) && _data.email != newUserData.email) ? newUserData.email : _data.email;
-                _data.phone = (!string.IsNullOrWhiteSpace(newUserData.phone) && _data.phone != newUserData.phone) ? newUserData.phone : _data.phone;
-                _data.birth_date = (newUserData.birth_date != null && _data.birth_date != newUserData.birth_date) ? newUserData.birth_date : _data.birth_date;
-                _data.bio = (!string.IsNullOrWhiteSpace(newUserData.bio) && _data.bio != newUserData.bio) ? newUserData.bio : _data.bio;
-                _data.gender = (_data.gender != newUserData.gender && newUserData.gender != null) ? newUserData.gender : _data.gender;
-                _data.last_updated_tsz = (newUserData.last_updated_tsz != null && _data.last_updated_tsz != newUserData.last_updated_tsz) ? newUserData.last_updated_tsz : _data.last_updated_tsz;
-                _data.status_active = (_data.status_active != newUserData.status_active) ? newUserData.status_active : _data.status_active;
-                _data.status_visibility = (_data.status_visibility != newUserData.status_visibility) ? newUserData.status_visibility : _data.status_visibility;
+                _data.contact_id = id;
+                _data.first_name = (!string.IsNullOrWhiteSpace(newData.first_name) && _data.first_name != newData.first_name) ? newData.first_name : _data.first_name;
+                _data.last_name = (!string.IsNullOrWhiteSpace(newData.last_name) && _data.last_name != newData.last_name) ? newData.last_name : _data.last_name;
+                _data.email = (!string.IsNullOrWhiteSpace(newData.email) && _data.email != newData.email) ? newData.email : _data.email;
+                _data.phone = (!string.IsNullOrWhiteSpace(newData.phone) && _data.phone != newData.phone) ? newData.phone : _data.phone;
+                _data.birth_date = (newData.birth_date.HasValue && _data.birth_date != newData.birth_date) ? newData.birth_date : _data.birth_date;
+                _data.bio = (!string.IsNullOrWhiteSpace(newData.bio) && _data.bio != newData.bio) ? newData.bio : _data.bio;
+                _data.gender = (_data.gender != newData.gender && newData.gender != null) ? newData.gender : _data.gender;
+                _data.last_updated_tsz = (newData.last_updated_tsz != null && _data.last_updated_tsz != newData.last_updated_tsz) ? newData.last_updated_tsz : _data.last_updated_tsz;
+                _data.status_active = (_data.status_active != newData.status_active) ? newData.status_active : _data.status_active;
+                _data.status_visibility = (_data.status_visibility != newData.status_visibility) ? newData.status_visibility : _data.status_visibility;
 
                 return _data;
             }
@@ -95,7 +95,7 @@ namespace PinPoint.Infrastructure.FluentValidation.AbstractValidators
 
         public bool IsEmailExist(string Email)
         {
-            return !_userRepository.IsEmailExist(Email).Result;
+            return !_contactRepository.IsEmailExist(Email).Result;
         }
     }
 }

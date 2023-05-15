@@ -14,6 +14,6 @@ namespace PinPoint.Core.FluentValidation
         AbstractValidator<TEntity> GetValidationByIdRules();
         AbstractValidator<TEntity> PostValidationRules();
         AbstractValidator<TEntity> PutValidationRules();
-        Task<TEntity> PutCompareRulesAsync(Guid id, TEntity newUserData);
+        Task<TEntity> PutCompareRulesAsync(Guid id, TEntity newData);
     }
 }

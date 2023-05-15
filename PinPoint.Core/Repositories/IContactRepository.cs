@@ -3,12 +3,12 @@ using PinPoint.Data.Domain;
 
 namespace PinPoint.Core.Repositories
 {
-    public interface IUserRepository : IRepository<User>
+    public interface IContactRepository : IRepository<Contact>
     {
         Task<bool> IsEmailExist(string email);
-        Task<bool> IsUserByIdExist(Guid id);
-        //Task<IEnumerable<User>> GetAsync();
-        //Task<User> GetByIdAsync(Guid id);
+        Task<bool> IsContactByIdExist(Guid id);
+        //Task<IEnumerable<Contact>> GetAsync();
+        //Task<Contact> GetByIdAsync(Guid id);
         //Task<bool> GetIdAnyAsync(Guid id);
         //Task<bool> GetEmailAnyAsync(string email);
         //Task<bool> GetPhoneAnyAsync(string phone);

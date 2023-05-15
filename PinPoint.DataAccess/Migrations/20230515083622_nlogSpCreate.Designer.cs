@@ -12,8 +12,8 @@ using PinPoint.DataAccess.Helpers;
 namespace PinPoint.DataAccess.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20221220145724_edit")]
-    partial class edit
+    [Migration("20230515083622_nlogSpCreate")]
+    partial class nlogSpCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,46 +25,9 @@ namespace PinPoint.DataAccess.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("PinPoint.Data.Domain.NLog", b =>
+            modelBuilder.Entity("PinPoint.Data.Domain.Contact", b =>
                 {
-                    b.Property<int?>("LogId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("LogId"));
-
-                    b.Property<string>("Callsite")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Exception")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Level")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("Logged")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Logger")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("MachineName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Message")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Properties")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("LogId");
-
-                    b.ToTable("NLogs");
-                });
-
-            modelBuilder.Entity("PinPoint.Data.Domain.User", b =>
-                {
-                    b.Property<Guid?>("user_id")
+                    b.Property<Guid?>("contact_id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
@@ -104,9 +67,46 @@ namespace PinPoint.DataAccess.Migrations
                     b.Property<bool?>("status_visibility")
                         .HasColumnType("bit");
 
-                    b.HasKey("user_id");
+                    b.HasKey("contact_id");
 
-                    b.ToTable("Users");
+                    b.ToTable("Contacts");
+                });
+
+            modelBuilder.Entity("PinPoint.Data.Domain.NLog", b =>
+                {
+                    b.Property<int?>("LogId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("LogId"));
+
+                    b.Property<string>("Callsite")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Exception")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Level")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("Logged")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Logger")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MachineName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Message")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Properties")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("LogId");
+
+                    b.ToTable("NLogs");
                 });
 #pragma warning restore 612, 618
         }

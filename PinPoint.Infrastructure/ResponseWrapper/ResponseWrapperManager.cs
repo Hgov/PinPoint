@@ -19,7 +19,7 @@ namespace PinPoint.Infrastructure.ResponseWrapper
     {
        
         [DataMember]
-        public string Version => "V1.0";
+        public string Version => "V1.0.0";
 
         [DataMember]
         public string requestUrl { get; set; }

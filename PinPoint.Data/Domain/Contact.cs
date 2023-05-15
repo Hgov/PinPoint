@@ -6,15 +6,11 @@ using static PinPoint.Data.Enums.Enums;
 
 namespace PinPoint.Data.Domain
 {
-    [Table("Users")]
-    public class User : AdditionalDomain
+    [Table("Contacts")]
+    public class Contact : AdditionalDomain
     {
-        public User()
-        {
-
-        }
         [Key]
-        public Guid? user_id { get; set; }
+        public Guid? contact_id { get; set; }
         public string? first_name { get; set; }
         public string? last_name { get; set; }
         public string? email { get; set; }

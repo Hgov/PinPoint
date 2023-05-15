@@ -21,7 +21,6 @@ builder.Services.ConfigureMapperService();
 
 // NLog: Setup NLog for Dependency injection
 LogManager.LoadConfiguration(string.Concat(Directory.GetCurrentDirectory(), "/Configuration/nlog.config"));
-builder.Services.AddScoped<ILoggerManager, LoggerManager>();
 
 builder.Services.ConfigureService();
 

@@ -33,6 +33,7 @@ namespace PinPoint.API.Middleware
                 //set the current response to the memorystream.
 
                 ResponseWrapperManager? result = null;
+                
                 try
                 {
                     context.Response.Body = memoryStream;
@@ -45,12 +46,13 @@ namespace PinPoint.API.Middleware
                     string? readToEnd = new StreamReader(memoryStream).ReadToEnd();
                     JObject readToEndSingle = JObject.Parse(readToEnd);
                     //int? statusCode = (int?)readToEndSingle["statusCode"];
-                    object objResult = JsonConvert.DeserializeObject<ResponseWrapperData>(readToEndSingle.ToString());
+                    object? objResult = JsonConvert.DeserializeObject<ResponseWrapperData>(readToEndSingle.ToString());
 
                     if ((int)(HttpStatusCode)context.Response.StatusCode >= (int)HttpStatusCode.Continue && (int)(HttpStatusCode)context.Response.StatusCode < (int)HttpStatusCode.BadRequest)
                     {
                         result = ResponseWrapperManager.Create(context, objResult, null);
-                        loggerManager.LogInfo(JsonConvert.SerializeObject(result));
+                        ResponseWrapperManager? tempResult = ResponseWrapperManager.Create(context, "Success", null);
+                        loggerManager.LogInfo(JsonConvert.SerializeObject(tempResult));
                     }
                     else
                     {

@@ -1,15 +1,6 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Mvc.Diagnostics;
-using Microsoft.EntityFrameworkCore.Diagnostics;
 using PinPoint.Data.Domain;
-using PinPoint.Infrastructure.MapperService.Models.User;
-using System;
-using System.Collections.Generic;
-using System.Data.Entity.Core.Metadata.Edm;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using PinPoint.Infrastructure.MapperService.Models;
 
 namespace PinPoint.Infrastructure.MapperService.Profiles
 {
@@ -30,25 +21,25 @@ namespace PinPoint.Infrastructure.MapperService.Profiles
     }
 
 
-    public class UserProfile : Profile
+    public class ContactProfile : Profile
     {
-        public UserProfile()
+        public ContactProfile()
         {
             AllowNullCollections = true;
             
             #region Get Map
-            CreateMap<GetUserDTO, User>();
-            CreateMap<User, GetUserDTO>();
+            CreateMap<GetContactDTO, Contact>();
+            CreateMap<Contact, GetContactDTO>();
 
-            CreateMap<User, List<GetUserDTO>>();
-            CreateMap<List<GetUserDTO>, User>();
+            CreateMap<Contact, List<GetContactDTO>>();
+            CreateMap<List<GetContactDTO>, Contact>();
 
-            CreateMap<GetUserDTO, List<GetUserDTO>>().ConvertUsing<SingleObjectToListConverter<GetUserDTO>>();
+            CreateMap<GetContactDTO, List<GetContactDTO>>().ConvertUsing<SingleObjectToListConverter<GetContactDTO>>();
 
             #endregion
 
             #region Post Map
-            CreateMap<PostUserDTO, User>()
+            CreateMap<PostContactDTO, Contact>()
               .ForMember(
                   dest => dest.creation_tsz,
                   opt => opt.MapFrom(src => $"{DateTime.Now}")
@@ -61,18 +52,27 @@ namespace PinPoint.Infrastructure.MapperService.Profiles
                   dest => dest.status_visibility,
               opt => opt.MapFrom(src => $"{true}")
               );
-            CreateMap<User, PostUserDTO>();
+            CreateMap<Contact, PostContactDTO>();
 
-            CreateMap<IEnumerable<PostUserDTO>, List<PostUserDTO>>().ConvertUsing<IEnumerableToListConverter<PostUserDTO>>(); 
+            CreateMap<IEnumerable<PostContactDTO>, List<PostContactDTO>>().ConvertUsing<IEnumerableToListConverter<PostContactDTO>>(); 
             #endregion
 
             #region Put Map
-            CreateMap<PutUserDTO, User>()
+            CreateMap<PutContactDTO, Contact>()
                 .ForMember(
                 dest => dest.last_updated_tsz,
                 opt => opt.MapFrom(src => $"{DateTime.Now}")
             );
-            CreateMap<User, PutUserDTO>();
+            CreateMap<Contact, PutContactDTO>();
+            #endregion
+
+            #region Delete Map
+            //CreateMap<DeleteContactDTO, Contact>();
+            //CreateMap<Contact, DeleteContactDTO>()
+            //    .ForMember(
+            //    dest => dest.contact.delete_tsz,
+            //    opt => opt.MapFrom(src => $"{DateTime.Now}")
+            //);
             #endregion
 
         }

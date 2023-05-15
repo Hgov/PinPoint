@@ -9,29 +9,29 @@ using PinPoint.Core.UnitOfWork.Base;
 using PinPoint.Data.Domain;
 using PinPoint.DataAccess.Helpers;
 using PinPoint.Infrastructure.BaseClass;
-using PinPoint.Infrastructure.MapperService.Models.User;
+using PinPoint.Infrastructure.MapperService.Models;
 using PinPoint.Infrastructure.UnitOfWork.Base;
 using System.Linq;
 using System.Net;
 
 namespace PinPoint.Application.Service
 {
-    public class UserService : BaseService, IUserService<User>
+    public class ContactService : BaseService, IContactService<Contact>
     {
-        public UserService(DataContext dataContext, IMapper mapper, ILoggerManager loggerManager) : base(dataContext, mapper, loggerManager) { }
-        public async Task<IActionResult> GetUserListAsync()
+        public ContactService(DataContext dataContext, IMapper mapper, ILoggerManager loggerManager) : base(dataContext, mapper, loggerManager) { }
+        public async Task<IActionResult> GetContactListAsync()
         {
             try
             {
                 List<PinPointResponse> pinpointResponse = new List<PinPointResponse>();
-                IEnumerable<GetUserDTO> _users = _mapper.Map<List<GetUserDTO>>(await _uow.userRepository.GetAllAsync());
-                if (!_users.Any())
+                IEnumerable<GetContactDTO> _contacts = _mapper.Map<List<GetContactDTO>>(await _uow.contactRepository.GetAllAsync());
+                if (!_contacts.Any())
                 {
-                    pinpointResponse.Add(new PinPointResponse() { Code = HttpStatusCode.NotFound.ToString(), PropertyName = "User", AttemptedValue = "", Message = "No records found." });
+                    pinpointResponse.Add(new PinPointResponse() { Code = HttpStatusCode.NotFound.ToString(), PropertyName = "Contact", AttemptedValue = "", Message = "No records found." });
                     return NotFound(pinpointResponse);
                 }
 
-                return Ok(_users.ToList());
+                return Ok(_contacts.ToList());
             }
             catch (Exception ex)
             {
@@ -39,17 +39,17 @@ namespace PinPoint.Application.Service
             }
 
         }
-        public async Task<IActionResult> GetByIdUserAsync(Guid id)
+        public async Task<IActionResult> GetByIdContactAsync(Guid id)
         {
             try
             {
                 List<PinPointResponse> pinpointResponse = new List<PinPointResponse>();
-                var _user = await _uow.userRepository.GetByIDAsync(id);
-                if (_user == null)
+                var _contact = await _uow.contactRepository.GetByIDAsync(id);
+                if (_contact == null)
                 {
-                    return NotFound(new PinPointResponse() { Code = HttpStatusCode.NotFound.ToString(), PropertyName = "user_id", AttemptedValue = id.ToString(), Message = "No records found." });
+                    return NotFound(new PinPointResponse() { Code = HttpStatusCode.NotFound.ToString(), PropertyName = "contact_id", AttemptedValue = id.ToString(), Message = "No records found." });
                 }
-                return Ok(_mapper.Map<List<GetUserDTO>>(_mapper.Map<GetUserDTO>(_user)));
+                return Ok(_mapper.Map<List<GetContactDTO>>(_mapper.Map<GetContactDTO>(_contact)));
             }
             catch (Exception ex)
             {
@@ -57,12 +57,12 @@ namespace PinPoint.Application.Service
             }
 
         }
-        public async Task<IActionResult> PostUserAsync(PostUserDTO postUserDTO)
+        public async Task<IActionResult> PostContactAsync(PostContactDTO postContactDTO)
         {
             try
             {
-                var _user = _mapper.Map<User>(postUserDTO);
-                var results = _uow.fluentValidationUser.PostValidationRules().Validate(_user);
+                var _contact = _mapper.Map<Contact>(postContactDTO);
+                var results = _uow.fluentValidationContact.PostValidationRules().Validate(_contact);
                 if (!results.IsValid)
                 {
                     List<PinPointResponse> pinpointResponse = new List<PinPointResponse>();
@@ -74,9 +74,9 @@ namespace PinPoint.Application.Service
                 }
                 else
                 {
-                    _user = await _uow.userRepository.AddAsync(_user);
+                    _contact = await _uow.contactRepository.AddAsync(_contact);
                     _uow.Complete();
-                    return Ok(_mapper.Map<List<GetUserDTO>>(_mapper.Map<GetUserDTO>(_user)));
+                    return Ok(_mapper.Map<List<GetContactDTO>>(_mapper.Map<GetContactDTO>(_contact)));
                 }
 
             }
@@ -86,17 +86,17 @@ namespace PinPoint.Application.Service
             }
 
         }
-        public async Task<IActionResult> PostBulkUserAsync(IEnumerable<PostUserDTO> postUserDTOs)
+        public async Task<IActionResult> PostBulkContactAsync(IEnumerable<PostContactDTO> postContactDTOs)
         {
             try
             {
                 List<PinPointResponse> pinpointResponse = new List<PinPointResponse>();
 
-                foreach (var postUserDTOItem in postUserDTOs)
+                foreach (var postContactDTOItem in postContactDTOs)
                 {
-                    var _user = _mapper.Map<User>(postUserDTOItem);
+                    var _contact = _mapper.Map<Contact>(postContactDTOItem);
 
-                    var results = _uow.fluentValidationUser.PostValidationRules().Validate(_user);
+                    var results = _uow.fluentValidationContact.PostValidationRules().Validate(_contact);
                     if (!results.IsValid)
                     {
                         foreach (var ValidateItem in results.Errors)
@@ -108,9 +108,9 @@ namespace PinPoint.Application.Service
                     }
                     else
                     {
-                        _user = await _uow.userRepository.AddAsync(_mapper.Map<User>(postUserDTOItem));
+                        _contact = await _uow.contactRepository.AddAsync(_mapper.Map<Contact>(postContactDTOItem));
                         _uow.Complete();
-                        pinpointResponse.Add(new PinPointResponse() { Code = HttpStatusCode.OK.ToString(), PropertyName = "user_id", AttemptedValue = _user.user_id.ToString(), Message = "Successful" });
+                        pinpointResponse.Add(new PinPointResponse() { Code = HttpStatusCode.OK.ToString(), PropertyName = "contact_id", AttemptedValue = _contact.contact_id.ToString(), Message = "Successful" });
                     }
                 }
                 return Ok(pinpointResponse);
@@ -122,15 +122,15 @@ namespace PinPoint.Application.Service
 
         }
 
-        public async Task<IActionResult> PutUserAsync(Guid id, PutUserDTO putUserDTO)
+        public async Task<IActionResult> PutContactAsync(Guid id, PutContactDTO putContactDTO)
         {
             try
             {
-                var _user = _mapper.Map<User>(putUserDTO);
-                User newData = await _uow.fluentValidationUser.PutCompareRulesAsync(id, _user);
+                var _contact = _mapper.Map<Contact>(putContactDTO);
+                Contact newData = await _uow.fluentValidationContact.PutCompareRulesAsync(id, _contact);
                 if (newData != null)
                 {
-                    var results = _uow.fluentValidationUser.PutValidationRules().Validate(newData);
+                    var results = _uow.fluentValidationContact.PutValidationRules().Validate(newData);
                     if (!results.IsValid)
                     {
                         List<PinPointResponse> pinpointResponse = new List<PinPointResponse>();
@@ -142,13 +142,13 @@ namespace PinPoint.Application.Service
                     }
                     else
                     {
-                        _user = _uow.userRepository.Update(newData);
+                        _contact = _uow.contactRepository.Update(newData);
                         _uow.Complete();
-                        return Ok(_mapper.Map<List<GetUserDTO>>(_mapper.Map<GetUserDTO>(_user)));
+                        return Ok(_mapper.Map<List<GetContactDTO>>(_mapper.Map<GetContactDTO>(_contact)));
                     }
                 }
                 else
-                    return NotFound(new PinPointResponse() { Code = HttpStatusCode.NotFound.ToString(), PropertyName = _user.user_id.ToString(), AttemptedValue = null, Message = "No records found." });
+                    return NotFound(new PinPointResponse() { Code = HttpStatusCode.NotFound.ToString(), PropertyName = _contact.contact_id.ToString(), AttemptedValue = null, Message = "No records found." });
             }
             catch (Exception ex)
             {
@@ -157,21 +157,21 @@ namespace PinPoint.Application.Service
 
         }
 
-        public async Task<IActionResult> DeleteUserAsync(Guid id)
+        public async Task<IActionResult> DeleteContactAsync(DeleteContactDTO deleteContactDTO)
         {
             try
             {
                 List<PinPointResponse> pinpointResponse = new List<PinPointResponse>();
-                var _user = await _uow.userRepository.GetByIDAsync(id);
-                if (_user == null)
+                var _contact = await _uow.contactRepository.GetByIDAsync(deleteContactDTO.contact_id);
+                if (_contact == null)
                 {
-                    return NotFound(new PinPointResponse() { Code = HttpStatusCode.NotFound.ToString(), PropertyName = "user_id", AttemptedValue = id.ToString(), Message = "No records found." });
+                    return NotFound(new PinPointResponse() { Code = HttpStatusCode.NotFound.ToString(), PropertyName = "contact_id", AttemptedValue = deleteContactDTO.contact_id.ToString(), Message = "No records found." });
                 }
                 else
                 {
-                    _uow.userRepository.Remove(_user);
+                    _uow.contactRepository.Remove(_contact);
                     _uow.Complete();
-                    return Ok(new PinPointResponse() { Code = HttpStatusCode.OK.ToString(), PropertyName = "user_id", AttemptedValue = id.ToString(), Message = "Successful" });
+                    return Ok(new PinPointResponse() { Code = HttpStatusCode.OK.ToString(), PropertyName = "contact_id", AttemptedValue = deleteContactDTO.contact_id.ToString(), Message = "Successful" });
                 }
 
             }
@@ -181,21 +181,21 @@ namespace PinPoint.Application.Service
             }
 
         }
-        public async Task<IActionResult> DeleteBulkUserAsync(IEnumerable<DeleteUserDTO> deleteUserDTOs)
+        public async Task<IActionResult> DeleteBulkContactAsync(IEnumerable<DeleteContactDTO> deleteContactDTOs)
         {
             try
             {
                 List<PinPointResponse> pinpointResponse = new List<PinPointResponse>();
-                foreach (var deleteUserDTOItem in deleteUserDTOs)
+                foreach (var deleteContactDTOItem in deleteContactDTOs)
                 {
-                    var _user = await _uow.userRepository.GetByIDAsync(deleteUserDTOItem.user_id);
-                    if (_user == null)
-                        pinpointResponse.Add(new PinPointResponse() { Code = HttpStatusCode.NotFound.ToString(), PropertyName = "user_id", AttemptedValue = deleteUserDTOItem.user_id.ToString(), Message = "No records found." });
+                    var _contact = await _uow.contactRepository.GetByIDAsync(deleteContactDTOItem.contact_id);
+                    if (_contact == null)
+                        pinpointResponse.Add(new PinPointResponse() { Code = HttpStatusCode.NotFound.ToString(), PropertyName = "contact_id", AttemptedValue = deleteContactDTOItem.contact_id.ToString(), Message = "No records found." });
                     else
                     {
-                        _uow.userRepository.Remove(_user);
+                        _uow.contactRepository.Remove(_contact);
                         _uow.Complete();
-                        pinpointResponse.Add(new PinPointResponse() { Code = HttpStatusCode.OK.ToString(), PropertyName = "user_id", AttemptedValue = deleteUserDTOItem.user_id.ToString(), Message = "Successful" });
+                        pinpointResponse.Add(new PinPointResponse() { Code = HttpStatusCode.OK.ToString(), PropertyName = "contact_id", AttemptedValue = deleteContactDTOItem.contact_id.ToString(), Message = "Successful" });
                     }
                 }
                 return Ok(pinpointResponse);

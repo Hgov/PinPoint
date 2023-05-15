@@ -14,20 +14,16 @@ namespace PinPoint.API
         public static void ConfigureService(this IServiceCollection services)
         {
             services.AddScoped<ILoggerManager, LoggerManager>();
-            services.AddScoped<IUserService<User>, UserService>();
+            services.AddScoped<IContactService<Contact>, ContactService>();
         }
 
         public static void ConfigureMapperService(this IServiceCollection services)
         {
-            services.AddAutoMapper(typeof(UserProfile));
+            services.AddAutoMapper(typeof(ContactProfile));
         }
         public static IApplicationBuilder UseResponseWrapperMiddleware(this IApplicationBuilder builder)
         {
             return builder.UseMiddleware<ResponseWrapperMiddleware>();
-        }
-        public static IApplicationBuilder UseApiKeyMiddleware(this IApplicationBuilder builder)
-        {
-            return builder.UseMiddleware<ApiKeyMiddleware>();
         }
     }
 

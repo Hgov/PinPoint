@@ -6,36 +6,16 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace PinPoint.DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class creDb : Migration
+    public partial class dbCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "NLogs",
+                name: "Contacts",
                 columns: table => new
                 {
-                    LogId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    MachineName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Logged = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Level = table.Column<int>(type: "int", nullable: true),
-                    Message = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Logger = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Properties = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Callsite = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Exception = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_NLogs", x => x.LogId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Users",
-                columns: table => new
-                {
-                    userid = table.Column<Guid>(name: "user_id", type: "uniqueidentifier", nullable: false),
+                    contactid = table.Column<Guid>(name: "contact_id", type: "uniqueidentifier", nullable: false),
                     firstname = table.Column<string>(name: "first_name", type: "nvarchar(max)", nullable: true),
                     lastname = table.Column<string>(name: "last_name", type: "nvarchar(max)", nullable: true),
                     email = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -51,7 +31,27 @@ namespace PinPoint.DataAccess.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Users", x => x.userid);
+                    table.PrimaryKey("PK_Contacts", x => x.contactid);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "NLogs",
+                columns: table => new
+                {
+                    LogId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    MachineName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Logged = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Level = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Message = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Logger = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Properties = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Callsite = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Exception = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_NLogs", x => x.LogId);
                 });
         }
 
@@ -59,10 +59,10 @@ namespace PinPoint.DataAccess.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "NLogs");
+                name: "Contacts");
 
             migrationBuilder.DropTable(
-                name: "Users");
+                name: "NLogs");
         }
     }
 }

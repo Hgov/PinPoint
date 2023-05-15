@@ -1,17 +1,16 @@
-﻿using PinPoint.Infrastructure.MapperService.Models.Base;
+﻿
 using static PinPoint.Data.Enums.Enums;
 
-namespace PinPoint.Infrastructure.MapperService.Models.User
+namespace PinPoint.Infrastructure.MapperService.Models
 {
-    public class GetUserDTO : AdditionalDomainDTO
+    public class PostContactDTO
     {
-        public Guid user_id { get; set; }
         public string? first_name { get; set; }
         public string? last_name { get; set; }
         public string? email { get; set; }
         public string? phone { get; set; }
         public string? bio { get; set; }
         public DateTime? birth_date { get; set; }
-        public Gender? gender { get; set; }
+        public virtual Gender? gender { get; set; }
     }
 }

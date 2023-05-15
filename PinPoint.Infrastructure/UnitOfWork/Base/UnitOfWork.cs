@@ -20,15 +20,15 @@ namespace PinPoint.Infrastructure.UnitOfWork.Base
         {
             loggerManager = new LoggerManager();
             _DataContext =DataContext;
-            userRepository = new UserRepository(_DataContext);
-            fluentValidationUser = new FluentValidation.AbstractValidators.UserValidator(userRepository);
+            contactRepository = new ContactRepository(_DataContext);
+            fluentValidationContact = new FluentValidation.AbstractValidators.ContactValidator(contactRepository);
 
         }
-        public IUserRepository userRepository { get; private set; }
+        public IContactRepository contactRepository { get; private set; }
 
         public ILoggerManager loggerManager { get; private set; }
 
-        public IFluentValidation<User> fluentValidationUser { get; private set; }
+        public IFluentValidation<Contact> fluentValidationContact { get; private set; }
 
         public int Complete()
         {
