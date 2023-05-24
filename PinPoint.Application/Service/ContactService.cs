@@ -1,17 +1,12 @@
 ﻿using AutoMapper;
-using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using PinPoint.Application.Interface;
 using PinPoint.Core.Data;
 using PinPoint.Core.LoggerManager;
-using PinPoint.Core.UnitOfWork.Base;
 using PinPoint.Data.Domain;
 using PinPoint.DataAccess.Helpers;
 using PinPoint.Infrastructure.BaseClass;
 using PinPoint.Infrastructure.MapperService.Models;
-using PinPoint.Infrastructure.UnitOfWork.Base;
-using System.Linq;
 using System.Net;
 
 namespace PinPoint.Application.Service

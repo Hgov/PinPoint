@@ -26,7 +26,7 @@ namespace PinPoint.Infrastructure.MapperService.Profiles
         public ContactProfile()
         {
             AllowNullCollections = true;
-            
+
             #region Get Map
             CreateMap<GetContactDTO, Contact>();
             CreateMap<Contact, GetContactDTO>();
@@ -54,7 +54,7 @@ namespace PinPoint.Infrastructure.MapperService.Profiles
               );
             CreateMap<Contact, PostContactDTO>();
 
-            CreateMap<IEnumerable<PostContactDTO>, List<PostContactDTO>>().ConvertUsing<IEnumerableToListConverter<PostContactDTO>>(); 
+            CreateMap<IEnumerable<PostContactDTO>, List<PostContactDTO>>().ConvertUsing<IEnumerableToListConverter<PostContactDTO>>();
             #endregion
 
             #region Put Map

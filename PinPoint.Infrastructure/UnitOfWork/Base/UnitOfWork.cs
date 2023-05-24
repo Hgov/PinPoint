@@ -1,13 +1,10 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Identity;
-using PinPoint.Core.FluentValidation;
+﻿using PinPoint.Core.FluentValidation;
 using PinPoint.Core.LoggerManager;
 using PinPoint.Core.Repositories;
 using PinPoint.Core.UnitOfWork.Base;
 using PinPoint.Data.Domain;
 using PinPoint.DataAccess.Helpers;
 using PinPoint.Infrastructure.LoggerService;
-using PinPoint.Infrastructure.MapperService.Profiles;
 using PinPoint.Infrastructure.Repositories;
 
 namespace PinPoint.Infrastructure.UnitOfWork.Base
@@ -19,7 +16,7 @@ namespace PinPoint.Infrastructure.UnitOfWork.Base
         public UnitOfWork(DataContext DataContext)
         {
             loggerManager = new LoggerManager();
-            _DataContext =DataContext;
+            _DataContext = DataContext;
             contactRepository = new ContactRepository(_DataContext);
             fluentValidationContact = new FluentValidation.AbstractValidators.ContactValidator(contactRepository);
 

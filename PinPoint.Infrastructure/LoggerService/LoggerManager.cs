@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using NLog;
+﻿using NLog;
 using PinPoint.Core.LoggerManager;
 
 namespace PinPoint.Infrastructure.LoggerService
@@ -14,7 +13,7 @@ namespace PinPoint.Infrastructure.LoggerService
 
         public void LogInfo(string message) => logger.Info(message);
 
-        public void LogWarn(string message)=>logger.Warn(message);
-        
+        public void LogWarn(string message) => logger.Warn(message);
+
     }
 }

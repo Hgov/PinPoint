@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 using PinPoint.Core.Repositories.Base;
 using PinPoint.DataAccess.Helpers;
 
@@ -37,7 +36,7 @@ namespace PinPoint.Infrastructure.Repositories.Base
         }
         public void Remove(TEntity entity)
         {
-             _dbSet.Remove(entity);
+            _dbSet.Remove(entity);
         }
 
         public void RemoveRange(IEnumerable<TEntity> entities)

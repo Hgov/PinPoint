@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using PinPoint.Core.FluentValidation;
+﻿using PinPoint.Core.FluentValidation;
 using PinPoint.Core.LoggerManager;
 using PinPoint.Core.Repositories;
 using PinPoint.Data.Domain;

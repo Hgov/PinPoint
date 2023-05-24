@@ -2,9 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using NLog;
 using PinPoint.API;
-using PinPoint.Core.LoggerManager;
 using PinPoint.DataAccess.Helpers;
-using PinPoint.Infrastructure.LoggerService;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -39,11 +37,11 @@ builder.Services.AddSwaggerGen(options =>
             Name = "Hayrettin GÖV",
             Url = new Uri("https://github.com/Hgov")
         },
-        //License = new OpenApiLicense
-        //{
-        //    Name = "Example License",
-        //    Url = new Uri("https://example.com/license")
-        //}
+        License = new OpenApiLicense
+        {
+            Name = "Example License",
+            Url = new Uri("https://github.com/Hgov")
+        }
     });
 });
 

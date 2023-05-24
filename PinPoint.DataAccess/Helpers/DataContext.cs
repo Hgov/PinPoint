@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PinPoint.Data.Domain;
-using PinPoint.Data.Enums;
 
 namespace PinPoint.DataAccess.Helpers
 {
@@ -58,6 +57,6 @@ namespace PinPoint.DataAccess.Helpers
 
         public DbSet<Contact> Contacts { get; set; }
         public DbSet<NLog> NLogs { get; set; }
-        
+
     }
 }

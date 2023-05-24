@@ -1,5 +1,4 @@
-﻿using Azure.Core;
-using FluentValidation;
+﻿using FluentValidation;
 using PinPoint.Core.FluentValidation;
 using PinPoint.Core.Repositories;
 using PinPoint.Data.Domain;

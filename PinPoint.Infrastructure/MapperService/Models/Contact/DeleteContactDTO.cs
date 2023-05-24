@@ -1,6 +1,4 @@
-﻿using PinPoint.Data.Domain;
-
-namespace PinPoint.Infrastructure.MapperService.Models
+﻿namespace PinPoint.Infrastructure.MapperService.Models
 {
     public class DeleteContactDTO
     {

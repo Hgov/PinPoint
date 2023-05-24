@@ -1,7 +1,4 @@
-﻿
-using PinPoint.Data.Domain;
-
-namespace PinPoint.Core.LoggerManager
+﻿namespace PinPoint.Core.LoggerManager
 {
     public interface ILoggerManager
     {

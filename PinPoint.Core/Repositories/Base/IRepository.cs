@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore.ChangeTracking;
-
-namespace PinPoint.Core.Repositories.Base
+﻿namespace PinPoint.Core.Repositories.Base
 {
     public interface IRepository<TEntity> where TEntity : class
     {

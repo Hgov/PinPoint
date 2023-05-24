@@ -1,8 +1,8 @@
-﻿using Newtonsoft.Json.Linq;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using PinPoint.Infrastructure.LoggerService;
-using System.Net;
 using PinPoint.Infrastructure.ResponseWrapper;
+using System.Net;
 
 namespace PinPoint.API.Middleware
 {
@@ -33,7 +33,7 @@ namespace PinPoint.API.Middleware
                 //set the current response to the memorystream.
 
                 ResponseWrapperManager? result = null;
-                
+
                 try
                 {
                     context.Response.Body = memoryStream;
@@ -63,7 +63,7 @@ namespace PinPoint.API.Middleware
                 }
                 catch (Exception ex)
                 {
-                    context.Response.StatusCode= (int)HttpStatusCode.InternalServerError;
+                    context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
                     result = ResponseWrapperManager.Create(context, null, JsonConvert.SerializeObject(ex));
                     loggerManager.LogError(JsonConvert.SerializeObject(result));
                     await context.Response.WriteAsync(JsonConvert.SerializeObject(result));

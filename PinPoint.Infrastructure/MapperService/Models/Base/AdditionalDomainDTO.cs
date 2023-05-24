@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace PinPoint.Infrastructure.MapperService.Models.Base
+﻿namespace PinPoint.Infrastructure.MapperService.Models.Base
 {
     public class AdditionalDomainDTO
     {
